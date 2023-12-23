@@ -41,11 +41,11 @@ class HomeScreen extends StatelessWidget {
       ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
+        backgroundColor: const Color(0xff6CC51D),
         child: SvgPicture.asset(
           "assets/bag.svg",
           width: 20,
         ),
-        backgroundColor: Color(0xff6CC51D),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 17),
@@ -101,158 +101,17 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
             15.verticalSpace,
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        width: .1.sh,
-                        height: .1.sw,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: Colors.green[50], shape: BoxShape.circle),
-                        child: SvgPicture.asset("assets/vegatables.svg"),
-                      ),
-                      10.verticalSpace,
-                      Text(
-                        "Vegatables",
-                        style: const TextStyle(
-                            color: Color(0xff868889),
-                            fontFamily: "Poppins",
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        width: .1.sh,
-                        height: .1.sw,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: Colors.red[50], shape: BoxShape.circle),
-                        child: SvgPicture.asset("assets/fruits.svg"),
-                      ),
-                      10.verticalSpace,
-                      Text(
-                        "Fruits",
-                        style: const TextStyle(
-                            color: Color(0xff868889),
-                            fontFamily: "Poppins",
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        width: .1.sh,
-                        height: .1.sw,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: Colors.orange[50], shape: BoxShape.circle),
-                        child: SvgPicture.asset("assets/beverages.svg"),
-                      ),
-                      10.verticalSpace,
-                      Text(
-                        "Beverages",
-                        style: const TextStyle(
-                            color: Color(0xff868889),
-                            fontFamily: "Poppins",
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        width: .1.sh,
-                        height: .1.sw,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: Colors.purple[50], shape: BoxShape.circle),
-                        child: SvgPicture.asset("assets/grocery.svg"),
-                      ),
-                      10.verticalSpace,
-                      Text(
-                        "Grocery",
-                        style: const TextStyle(
-                            color: Color(0xff868889),
-                            fontFamily: "Poppins",
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        width: .1.sh,
-                        height: .1.sw,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: Colors.blue[50], shape: BoxShape.circle),
-                        child: SvgPicture.asset("assets/oil.svg"),
-                      ),
-                      10.verticalSpace,
-                      Text(
-                        "Edible oil",
-                        style: const TextStyle(
-                            color: Color(0xff868889),
-                            fontFamily: "Poppins",
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        width: .1.sh,
-                        height: .1.sw,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: Colors.pink[50], shape: BoxShape.circle),
-                        child: SvgPicture.asset("assets/houshold.svg"),
-                      ),
-                      10.verticalSpace,
-                      Text(
-                        "Houshold",
-                        style: const TextStyle(
-                            color: Color(0xff868889),
-                            fontFamily: "Poppins",
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        width: .1.sh,
-                        height: .1.sw,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: Colors.blue[50], shape: BoxShape.circle),
-                        child: SvgPicture.asset("assets/babycare.svg"),
-                      ),
-                      10.verticalSpace,
-                      Text(
-                        "Babycare",
-                        style: const TextStyle(
-                            color: Color(0xff868889),
-                            fontFamily: "Poppins",
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                ],
+            SizedBox(
+              height: 70,
+              child: ListView.builder(
+                itemCount: myTabs.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return TabBarItems(
+                      imagePath: myTabs[index][0],
+                      color: myTabs[index][1],
+                      foodType: myTabs[index][2]);
+                },
               ),
             ),
             25.verticalSpace,
