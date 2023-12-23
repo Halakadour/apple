@@ -17,28 +17,26 @@ class TabBarItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-                  children: [
-                    Container(
-                      width: .1.sh,
-                      height: .1.sw,
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          color: Colors.green[50], shape: BoxShape.circle),
-                      child: SvgPicture.asset("assets/vegatables.svg"),
-                    ),
-                    10.verticalSpace,
-                    Text(
-                      "Vegatables",
-                      style: const TextStyle(
-                          color: Color(0xff868889),
-                          fontFamily: "Poppins",
-                          fontSize: 10,
-                          fontWeight: FontWeight.w500),
-                    )
-                  ],
-                ),
+    return Column(
+      children: [
+        Container(
+          width: .1.sh,
+          height: .1.sw,
+          padding: const EdgeInsets.all(10),
+          decoration:
+              BoxDecoration(color: Colors.green[50], shape: BoxShape.circle),
+          child: SvgPicture.asset(imagePath),
+        ),
+        10.verticalSpace,
+        Text(
+          foodType,
+          style: TextStyle(
+              color: color,
+              fontFamily: "Poppins",
+              fontSize: 10,
+              fontWeight: FontWeight.w500),
+        )
+      ],
     );
   }
 }
