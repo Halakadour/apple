@@ -122,33 +122,48 @@ class HomeScreen extends StatelessWidget {
                     ),
                     Expanded(
                         child: FutureBuilder(
-                          future: db.collection("fruits").get(),
-                          builder: (context, snapshot) =>
-                          snapshot.connectionState == ConnectionState.waiting ? 
-                         const Center(child: CircularProgressIndicator(),):
-                         snapshot.connectionState == ConnectionState.done?
-                         snapshot.requireData.docs.isEmpty ?
-                         const Center(child: Text("No Data"),):
-                          GridView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: snapshot.requireData.docs.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      childAspectRatio: .7,
-                                      crossAxisSpacing: 8),
-                              itemBuilder: (context, index) => FoodWidget(
-                                     foodColor: snapshot.requireData.docs[index]['color'],
-                                     description: "",
-                                     foodName: snapshot.requireData.docs[index]['name'],
-                                     imageUrl: snapshot.requireData.docs[index]['image'],
-                                     itsType: snapshot.requireData.docs[index]['type'],
-                                     price: snapshot.requireData.docs[index]['price'],
-                                     rate: snapshot.requireData.docs[index]['rate'],
-                                     weight: snapshot.requireData.docs[index]['weight'],
-                              )): 
-                              const Center(child: Text("Failed")),
-                        ))
+                      future: db.collection("fruits").get(),
+                      builder: (context, snapshot) => snapshot
+                                  .connectionState ==
+                              ConnectionState.waiting
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : snapshot.connectionState == ConnectionState.done
+                              ? snapshot.requireData.docs.isEmpty
+                                  ? const Center(
+                                      child: Text("No Data"),
+                                    )
+                                  : GridView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemCount:
+                                          snapshot.requireData.docs.length,
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 2,
+                                              childAspectRatio: .65,
+                                              crossAxisSpacing: 8),
+                                      itemBuilder: (context, index) =>
+                                          FoodWidget(
+                                            foodColor: snapshot.requireData
+                                                .docs[index]['color'],
+                                            description: "",
+                                            foodName: snapshot.requireData
+                                                .docs[index]['name'],
+                                            imageUrl: snapshot.requireData
+                                                .docs[index]['image'],
+                                            itsType: snapshot.requireData
+                                                .docs[index]['type'],
+                                            price: snapshot.requireData
+                                                .docs[index]['price'],
+                                            rate: snapshot.requireData
+                                                .docs[index]['rate'],
+                                            weight: snapshot.requireData
+                                                .docs[index]['weight'],
+                                          ))
+                              : const Center(child: Text("Failed")),
+                    ))
                   ],
                 ),
               ),
