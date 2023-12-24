@@ -1,3 +1,4 @@
+import 'package:apple/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,7 +15,6 @@ class LoginScreen extends StatelessWidget {
         Image.asset(
           "assets/signup.png",
         ),
-        
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
@@ -70,26 +70,7 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 height: .02.sh,
               ),
-              Container(
-                width: 1.sw,
-                height: .07.sh,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(3),
-                    gradient: const LinearGradient(colors: [
-                      Color(0xffAEDC81),
-                      Color(0xff6CC51D),
-                    ], begin: Alignment.bottomLeft, end: Alignment.topRight)),
-                child: const Center(
-                    child: Text(
-                  "Login",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: "Poppins",
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                  ),
-                )),
-              ),
+              const MyButton(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

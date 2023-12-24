@@ -1,4 +1,5 @@
 import 'package:apple/screens/login_screen.dart';
+import 'package:apple/widgets/custom_button.dart';
 import 'package:apple/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -54,26 +55,7 @@ class SignUpScreen extends StatelessWidget {
               SizedBox(
                 height: .02.sh,
               ),
-              Container(
-                width: 1.sw,
-                height: .07.sh,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(3),
-                    gradient: const LinearGradient(colors: [
-                      Color(0xffAEDC81),
-                      Color(0xff6CC51D),
-                    ], begin: Alignment.bottomLeft, end: Alignment.topRight)),
-                child: const Center(
-                    child: Text(
-                  "Signup",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: "Poppins",
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                  ),
-                )),
-              ),
+              const MyButton(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

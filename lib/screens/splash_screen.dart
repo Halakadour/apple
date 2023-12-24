@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:apple/screens/details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -11,7 +12,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   //@override
   // void didChangeDependencies() {
   //   Future.delayed(const Duration(seconds: 4), () async {
@@ -35,6 +35,20 @@ class _SplashScreenState extends State<SplashScreen> {
   //   });
   //   super.didChangeDependencies();
   // }
+
+  @override
+  void didChangeDependencies() {
+    Future.delayed(
+      // ignore: prefer_const_constructors
+      Duration(seconds: 3),
+      () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const DetailsScreen(),
+          )),
+    );
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {

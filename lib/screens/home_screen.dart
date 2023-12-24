@@ -1,4 +1,11 @@
+// ignore_for_file: unused_import
+
+import 'package:apple/screens/categories_screen.dart';
+import 'package:apple/widgets/bottom_app_bar.dart';
+import 'package:apple/widgets/food_widget.dart';
 import 'package:apple/widgets/tab_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,6 +13,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
+  final db = FirebaseFirestore.instance;
   final List myTabs = [
     ["assets/vegatables.svg", Colors.green, "Vegatables"],
     ["assets/fruits.svg", Colors.red, "Fruits"],
@@ -20,35 +28,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          elevation: 0,
-          items: [
-            BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  "assets/home.svg",
-                  width: 20,
-                ),
-                label: ""),
-            BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  "assets/user.svg",
-                  width: 20,
-                ),
-                label: ""),
-            BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  "assets/favorite.svg",
-                  width: 20,
-                ),
-                label: ""),
-            BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  "",
-                  width: 20,
-                ),
-                label: ""),
-          ]),
+      bottomNavigationBar: const CustomBottomAppBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         backgroundColor: const Color(0xff6CC51D),
@@ -71,21 +51,30 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     80.verticalSpace,
                     Image.asset("assets/homey.png"),
-                    10.verticalSpace,
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Categories",
                           style: TextStyle(
                               fontFamily: "Poppins",
                               fontSize: 18,
                               fontWeight: FontWeight.w600),
                         ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: Color(0xFF868889),
-                          size: 24,
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      Categories(itemList: myTabs),
+                                ));
+                          },
+                          icon: const Icon(
+                            Icons.arrow_forward_ios,
+                            color: Color(0xFF868889),
+                            size: 24,
+                          ),
                         )
                       ],
                     ),
@@ -103,116 +92,63 @@ class HomeScreen extends StatelessWidget {
                         },
                       ),
                     ),
-                    25.verticalSpace,
-                    const Row(
+                    10.verticalSpace,
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Featured products",
                           style: TextStyle(
                               fontFamily: "Poppins",
                               fontSize: 18,
                               fontWeight: FontWeight.w600),
                         ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: Color(0xFF868889),
-                          size: 24,
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      Categories(itemList: myTabs),
+                                ));
+                          },
+                          icon: const Icon(
+                            Icons.arrow_forward_ios,
+                            color: Color(0xFF868889),
+                            size: 24,
+                          ),
                         )
                       ],
                     ),
-                    10.verticalSpace,
                     Expanded(
-                        child: GridView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: 10,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, childAspectRatio: .7),
-                      itemBuilder: (context, index) => Container(
-                        margin: EdgeInsets.only(left: 5, bottom: 5),
-                        decoration: BoxDecoration(color: Colors.white),
-                        child: Column(children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Icon(Icons.favorite_outline,
-                                        color: Color(0xff868889)),
-                                  ],
-                                ),
-                                Stack(
-                                  alignment: Alignment(0, 4),
-                                  children: [
-                                    Container(
-                                      width: 90,
-                                      height: 90,
-                                      clipBehavior: Clip.none,
-                                      decoration: BoxDecoration(
-                                          color: Colors.yellow.shade100,
-                                          shape: BoxShape.circle),
-                                    ),
-                                    Image.asset(
-                                      "assets/aocado.png",
-                                      width: 120,
-                                    ),
-                                  ],
-                                ),
-                                15.verticalSpace,
-                                Text(
-                                  "\$7.00",
-                                  style: TextStyle(
-                                      color: Color(0xff6CC51D),
-                                      fontFamily: "Poppins",
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                Text(
-                                  "Avacoda",
-                                  style: TextStyle(
-                                      fontFamily: "Poppins",
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                Text(
-                                  "2.0 lbs",
-                                  style: TextStyle(
-                                      color: Color(0xff868889),
-                                      fontFamily: "Poppins",
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Divider(
-                            color: Color(0xFFEBEBEB),
-                            thickness: 1.2,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                "assets/bag.svg",
-                                width: 15,
-                                color: Color(0xff6CC51D),
-                              ),
-                              8.horizontalSpace,
-                              Text(
-                                "Add to cart",
-                                style: TextStyle(
-                                    color: Color(0xff010101),
-                                    fontFamily: "Poppins",
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          )
-                        ]),
-                      ),
-                    ))
+                        child: FutureBuilder(
+                          future: db.collection("fruits").get(),
+                          builder: (context, snapshot) =>
+                          snapshot.connectionState == ConnectionState.waiting ? 
+                         const Center(child: CircularProgressIndicator(),):
+                         snapshot.connectionState == ConnectionState.done?
+                         snapshot.requireData.docs.isEmpty ?
+                         const Center(child: Text("No Data"),):
+                          GridView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: snapshot.requireData.docs.length,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      childAspectRatio: .7,
+                                      crossAxisSpacing: 8),
+                              itemBuilder: (context, index) => FoodWidget(
+                                     foodColor: snapshot.requireData.docs[index]['color'],
+                                     description: snapshot.requireData.docs[index]['description'],
+                                     foodName: snapshot.requireData.docs[index]['name'],
+                                     imageUrl: snapshot.requireData.docs[index]['image'],
+                                     itsType: snapshot.requireData.docs[index]['type'],
+                                     price: snapshot.requireData.docs[index]['price'],
+                                     rate: snapshot.requireData.docs[index]['rate'],
+                                     weight: snapshot.requireData.docs[index]['weight'],
+                              )): 
+                              const Center(child: Text("Failed")),
+                        ))
                   ],
                 ),
               ),
