@@ -139,7 +139,7 @@ class HomeScreen extends StatelessWidget {
                                       crossAxisSpacing: 8),
                               itemBuilder: (context, index) => FoodWidget(
                                      foodColor: snapshot.requireData.docs[index]['color'],
-                                     description: snapshot.requireData.docs[index]['description'],
+                                     description: "",
                                      foodName: snapshot.requireData.docs[index]['name'],
                                      imageUrl: snapshot.requireData.docs[index]['image'],
                                      itsType: snapshot.requireData.docs[index]['type'],

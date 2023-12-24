@@ -8,7 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import '../widgets/food_widget.dart';
 
 class GroceryScreen extends StatelessWidget {
-   GroceryScreen({super.key, required this.groceryType});
+  GroceryScreen({super.key, required this.groceryType});
   final db = FirebaseFirestore.instance;
   final String groceryType;
   @override
@@ -54,34 +54,44 @@ class GroceryScreen extends StatelessWidget {
           children: [
             10.verticalSpace,
             Expanded(
-               child: FutureBuilder(
-                          future: db.collection("fruits").get(),
-                          builder: (context, snapshot) =>
-                          snapshot.connectionState == ConnectionState.waiting ? 
-                         const Center(child: CircularProgressIndicator(),):
-                         snapshot.connectionState == ConnectionState.done?
-                         snapshot.requireData.docs.isEmpty ?
-                         const Center(child: Text("No Data"),):
-                          GridView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
+                child: FutureBuilder(
+              future: db.collection("fruits").get(),
+              builder: (context, snapshot) => snapshot.connectionState ==
+                      ConnectionState.waiting
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : snapshot.connectionState == ConnectionState.done
+                      ? snapshot.requireData.docs.isEmpty
+                          ? const Center(
+                              child: Text("No Data"),
+                            )
+                          : GridView.builder(
                               itemCount: snapshot.requireData.docs.length,
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
-                                      childAspectRatio: .75,
+                                      childAspectRatio: .7,
                                       crossAxisSpacing: 8),
                               itemBuilder: (context, index) => FoodWidget(
-                                     foodColor: snapshot.requireData.docs[index]['color'],
-                                     description: snapshot.requireData.docs[index]['description'],
-                                     foodName: snapshot.requireData.docs[index]['name'],
-                                     imageUrl: snapshot.requireData.docs[index]['image'],
-                                     itsType: snapshot.requireData.docs[index]['type'],
-                                     price: snapshot.requireData.docs[index]['price'],
-                                     rate: snapshot.requireData.docs[index]['rate'],
-                                     weight: snapshot.requireData.docs[index]['weight'],
-                              )): 
-                              const Center(child: Text("Failed")),
-                        ))
+                                    foodColor: snapshot.requireData.docs[index]
+                                        ['color'],
+                                    description: "",
+                                    foodName: snapshot.requireData.docs[index]
+                                        ['name'],
+                                    imageUrl: snapshot.requireData.docs[index]
+                                        ['image'],
+                                    itsType: snapshot.requireData.docs[index]
+                                        ['type'],
+                                    price: snapshot.requireData.docs[index]
+                                        ['price'],
+                                    rate: snapshot.requireData.docs[index]
+                                        ['rate'],
+                                    weight: snapshot.requireData.docs[index]
+                                        ['weight'],
+                                  ))
+                      : const Center(child: Text("Failed")),
+            ))
           ],
         ),
       ),
