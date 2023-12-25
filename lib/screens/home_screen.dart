@@ -148,7 +148,8 @@ class HomeScreen extends StatelessWidget {
                                           FoodWidget(
                                             foodColor: snapshot.requireData
                                                 .docs[index]['color'],
-                                            description: "",
+                                            description: snapshot.requireData
+                                                .docs[index]['description'],
                                             foodName: snapshot.requireData
                                                 .docs[index]['name'],
                                             imageUrl: snapshot.requireData
@@ -161,6 +162,10 @@ class HomeScreen extends StatelessWidget {
                                                 .docs[index]['rate'],
                                             weight: snapshot.requireData
                                                 .docs[index]['weight'],
+                                            quantity: snapshot.requireData
+                                                .docs[index]['quantity'],
+                                            favorite: snapshot.requireData
+                                                .docs[index]['favorite'],
                                           ))
                               : const Center(child: Text("Failed")),
                     ))
@@ -175,7 +180,7 @@ class HomeScreen extends StatelessWidget {
               child: TextField(
                 decoration: InputDecoration(
                     filled: true,
-                    fillColor: const Color(0xffF4F5F9),
+                    fillColor: const Color(0xFFF0F0F1),
                     prefixIcon: Padding(
                       padding: const EdgeInsets.all(20),
                       child: SvgPicture.asset(
@@ -184,7 +189,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     hintText: "Search Keywords..",
                     hintStyle: const TextStyle(
-                      color: Color(0xff868889),
+                      color: Color.fromRGBO(117, 119, 121, 1),
                       fontFamily: "Poppins",
                       fontSize: 13,
                       fontWeight: FontWeight.w500,

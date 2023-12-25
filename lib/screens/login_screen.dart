@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../widgets/text_field.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -70,7 +71,14 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 height: .02.sh,
               ),
-              const MyButton(),
+              MyButton(
+                name: "Login",
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeScreen(),
+                    )),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

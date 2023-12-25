@@ -76,7 +76,8 @@ class GroceryScreen extends StatelessWidget {
                               itemBuilder: (context, index) => FoodWidget(
                                     foodColor: snapshot.requireData.docs[index]
                                         ['color'],
-                                    description: "",
+                                    description: snapshot
+                                        .requireData.docs[index]['description'],
                                     foodName: snapshot.requireData.docs[index]
                                         ['name'],
                                     imageUrl: snapshot.requireData.docs[index]
@@ -89,6 +90,10 @@ class GroceryScreen extends StatelessWidget {
                                         ['rate'],
                                     weight: snapshot.requireData.docs[index]
                                         ['weight'],
+                                    quantity: snapshot.requireData.docs[index]
+                                        ['quantity'],
+                                    favorite: snapshot.requireData.docs[index]
+                                        ['favorite'],
                                   ))
                       : const Center(child: Text("Failed")),
             ))

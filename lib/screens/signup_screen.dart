@@ -4,6 +4,8 @@ import 'package:apple/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'home_screen.dart';
+
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
 
@@ -55,7 +57,14 @@ class SignUpScreen extends StatelessWidget {
               SizedBox(
                 height: .02.sh,
               ),
-              const MyButton(),
+              MyButton(
+                name: "Signup",
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeScreen(),
+                    )),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
