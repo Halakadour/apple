@@ -94,7 +94,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const SignUpScreen(),
+                        builder: (context) => SignUpScreen(),
                       ));
                 },
                 child: const Text(
@@ -166,7 +166,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const SignUpScreen(),
+                            builder: (context) => SignUpScreen(),
                           ));
                     }
                   },

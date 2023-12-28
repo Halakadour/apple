@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      bottomNavigationBar: const CustomBottomAppBar(),
+      bottomNavigationBar: CustomBottomAppBar(pageIndex: 0),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         backgroundColor: const Color(0xff6CC51D),
@@ -146,6 +146,8 @@ class HomeScreen extends StatelessWidget {
                                               crossAxisSpacing: 8),
                                       itemBuilder: (context, index) =>
                                           FoodWidget(
+                                            id: snapshot
+                                                .requireData.docs[index].id,
                                             foodColor: snapshot.requireData
                                                 .docs[index]['color'],
                                             description: snapshot.requireData

@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 class FoodWidget extends StatelessWidget {
   FoodWidget(
       {super.key,
+      required this.id,
       required this.foodColor,
       required this.description,
       required this.imageUrl,
@@ -17,7 +18,7 @@ class FoodWidget extends StatelessWidget {
       required this.weight,
       required this.quantity,
       required this.favorite});
-
+  final String id;
   final String foodColor;
   final String description;
   final String imageUrl;
@@ -68,14 +69,7 @@ class FoodWidget extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => FoodDetailsScreen(
-                              foodColor: foodColor,
-                              description: description,
-                              imageUrl: imageUrl,
-                              foodName: foodName,
-                              price: price,
-                              rate: rate,
-                              itsType: itsType,
-                              weight: weight,
+                              id: id,
                               quantity: quantity,
                               favorite: favorite),
                         )),

@@ -2,14 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MyTextField extends StatelessWidget {
-  const MyTextField({super.key, required this.iconPath, required this.hint});
+  const MyTextField(
+      {super.key,
+      required this.controller,
+      required this.iconPath,
+      required this.hint, this.validator});
   final String iconPath;
   final String hint;
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),
-      child: TextField(
+      child: TextFormField(
+        controller: controller,
+        validator: validator,
         decoration: InputDecoration(
             prefixIcon: Padding(
               padding: const EdgeInsets.all(20),

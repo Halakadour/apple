@@ -3,6 +3,7 @@
 import 'package:apple/screens/details_screen.dart';
 import 'package:apple/screens/food_details_screen.dart';
 import 'package:apple/screens/home_screen.dart';
+import 'package:apple/screens/signup_screen.dart';
 import 'package:apple/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,7 +28,7 @@ class MainApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, child) =>
-          const MaterialApp(debugShowCheckedModeBanner: false, home: SplashScreen()),
+          MaterialApp(debugShowCheckedModeBanner: false, home: SignUpScreen()),
     );
   }
 }

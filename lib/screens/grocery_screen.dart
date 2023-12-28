@@ -74,6 +74,7 @@ class GroceryScreen extends StatelessWidget {
                                       childAspectRatio: .7,
                                       crossAxisSpacing: 8),
                               itemBuilder: (context, index) => FoodWidget(
+                                    id: snapshot.requireData.docs[index].id,
                                     foodColor: snapshot.requireData.docs[index]
                                         ['color'],
                                     description: snapshot
