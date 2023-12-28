@@ -1,3 +1,4 @@
+// ignore_for_file: unused_local_variable, use_build_context_synchronously, avoid_print
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/widgets/custom_button.dart';
 import '../../home/screens/home_screen.dart';
 import '../widgets/text_field.dart';
-
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -47,20 +47,20 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "Welcome back !",
                       style: TextStyle(
                           fontFamily: "Poppins",
-                          fontSize: 25,
+                          fontSize: 25.sp,
                           fontWeight: FontWeight.w600,
                           letterSpacing: .75),
                     ),
-                    const Text(
+                    Text(
                       "Sign in to your account",
                       style: TextStyle(
                           color: Color(0xff868889),
                           fontFamily: "Poppins",
-                          fontSize: 15,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w400,
                           letterSpacing: .45),
                     ),
@@ -97,19 +97,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         TextButton(
                             onPressed: () {},
-                            child: const Text(
+                            child: Text(
                               "Forgot password",
                               style: TextStyle(
                                   color: Color(0xff407EC7),
                                   fontFamily: "Poppins",
-                                  fontSize: 15,
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.w500,
                                   letterSpacing: .45),
                             ))
                       ],
                     ),
                     SizedBox(
-                      height: .02.sh,
+                      height: .01.sh,
                     ),
                     MyButton(
                         name: isLoading ? "Loading" : "Login",
@@ -153,23 +153,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           "Don’t have an account ?",
                           style: TextStyle(
                               color: Color(0xff868889),
                               fontFamily: "Poppins",
-                              fontSize: 15,
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.w300,
                               letterSpacing: .45),
                         ),
                         TextButton(
                             onPressed: () {},
-                            child: const Text(
+                            child: Text(
                               "Sign up",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontFamily: "Poppins",
-                                  fontSize: 15,
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.w500,
                                   letterSpacing: .45),
                             ))

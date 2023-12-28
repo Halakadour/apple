@@ -1,3 +1,4 @@
+// ignore_for_file: unused_local_variable, use_build_context_synchronously, avoid_print
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,6 @@ import '../../core/widgets/custom_button.dart';
 import '../../home/screens/home_screen.dart';
 import '../widgets/text_field.dart';
 import 'login_screen.dart';
-
-
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -48,20 +47,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Text(
+               Text(
                 "Create account",
                 style: TextStyle(
                     fontFamily: "Poppins",
-                    fontSize: 25,
+                    fontSize: 25.sp,
                     fontWeight: FontWeight.w600,
                     letterSpacing: .75),
               ),
-              const Text(
+               Text(
                 "Quickly create account",
                 style: TextStyle(
                     color: Color(0xff868889),
                     fontFamily: "Poppins",
-                    fontSize: 15,
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.w400,
                     letterSpacing: .45),
               ),
@@ -150,12 +149,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     "Don’t have an account ?",
                     style: TextStyle(
                         color: Color(0xff868889),
                         fontFamily: "Poppins",
-                        fontSize: 15,
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.w300,
                         letterSpacing: .45),
                   ),
@@ -164,15 +163,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => LoginScreen(),
+                              builder: (context) => const LoginScreen(),
                             ));
                       },
-                      child: const Text(
+                      child: Text(
                         "Login",
                         style: TextStyle(
                             color: Colors.black,
                             fontFamily: "Poppins",
-                            fontSize: 15,
+                            fontSize: 15.sp,
                             fontWeight: FontWeight.w500,
                             letterSpacing: .45),
                       ))

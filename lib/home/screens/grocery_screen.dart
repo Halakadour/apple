@@ -30,10 +30,10 @@ class GroceryScreen extends StatelessWidget {
             )),
         title: Text(
           groceryType,
-          style: const TextStyle(
+          style: TextStyle(
               color: Colors.black,
               fontFamily: "Poppins",
-              fontSize: 18,
+              fontSize: 18.sp,
               fontWeight: FontWeight.w500,
               letterSpacing: .54),
         ),
@@ -91,10 +91,6 @@ class GroceryScreen extends StatelessWidget {
                                         ['rate'],
                                     weight: snapshot.requireData.docs[index]
                                         ['weight'],
-                                    quantity: snapshot.requireData.docs[index]
-                                        ['quantity'],
-                                    favorite: snapshot.requireData.docs[index]
-                                        ['favorite'],
                                   ))
                       : const Center(child: Text("Failed")),
             ))

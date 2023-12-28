@@ -18,13 +18,13 @@ class MyButton extends StatelessWidget {
               Color(0xffAEDC81),
               Color(0xff6CC51D),
             ], begin: Alignment.bottomLeft, end: Alignment.topRight)),
-        child:  Center(
+        child: Center(
             child: Text(
           name,
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.white,
             fontFamily: "Poppins",
-            fontSize: 15,
+            fontSize: 15.sp,
             fontWeight: FontWeight.w600,
           ),
         )),

@@ -12,12 +12,11 @@ class FoodDetailsScreen extends StatelessWidget {
       {super.key,
       required this.id,
       required this.quantity,
-      required this.favorite});
+      required this.isFavorite,
+      });
   final String id;
-  int quantity;
-  bool favorite;
-  final ValueNotifier<int> amount = ValueNotifier(0);
-  final ValueNotifier<bool> isFavorite = ValueNotifier(false);
+  final ValueNotifier<int> quantity;
+  final ValueNotifier<bool> isFavorite;
   final db = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
@@ -62,10 +61,10 @@ class FoodDetailsScreen extends StatelessWidget {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              icon: const Icon(
+                              icon:  Icon(
                                 Icons.arrow_back,
                                 color: Colors.black,
-                                size: 30,
+                                size: 30.sp,
                               )),
                         ),
                       ],
@@ -87,10 +86,10 @@ class FoodDetailsScreen extends StatelessWidget {
                             children: [
                               Text(
                                 "\$${snapshot.requireData.data()!['price']}",
-                                style: const TextStyle(
+                                style:  TextStyle(
                                     color: Color(0xff28B446),
                                     fontFamily: "Poppins",
-                                    fontSize: 18,
+                                    fontSize: 18.sp,
                                     fontWeight: FontWeight.w600),
                               ),
                               GestureDetector(
@@ -110,17 +109,17 @@ class FoodDetailsScreen extends StatelessWidget {
                           ),
                           Text(
                             snapshot.requireData.data()!['name'],
-                            style: const TextStyle(
+                            style:  TextStyle(
                                 fontFamily: "Poppins",
-                                fontSize: 20,
+                                fontSize: 20.sp,
                                 fontWeight: FontWeight.w600),
                           ),
                           Text(
                             snapshot.requireData.data()!['weight'],
-                            style: const TextStyle(
+                            style:  TextStyle(
                                 color: Color(0xff868889),
                                 fontFamily: "Poppins",
-                                fontSize: 12,
+                                fontSize: 12.sp,
                                 fontWeight: FontWeight.w500),
                           ),
                           10.verticalSpace,
@@ -128,9 +127,9 @@ class FoodDetailsScreen extends StatelessWidget {
                             children: [
                               Text(
                                 snapshot.requireData.data()!['rate'],
-                                style: const TextStyle(
+                                style:  TextStyle(
                                     fontFamily: "Poppins",
-                                    fontSize: 12,
+                                    fontSize: 12.sp,
                                     fontWeight: FontWeight.w500),
                               ),
                               const Icon(
@@ -166,10 +165,10 @@ class FoodDetailsScreen extends StatelessWidget {
                           20.verticalSpace,
                           Text(
                             snapshot.requireData.data()!['description'],
-                            style: const TextStyle(
+                            style:  TextStyle(
                                 color: Color(0xff868889),
                                 fontFamily: "Poppins",
-                                fontSize: 12,
+                                fontSize: 12.sp,
                                 fontWeight: FontWeight.w500,
                                 height: 2),
                           ),
@@ -183,20 +182,20 @@ class FoodDetailsScreen extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text(
+                                 Text(
                                   "Quantity",
                                   style: TextStyle(
                                       color: Color(0xff868889),
                                       fontFamily: "Poppins",
-                                      fontSize: 12,
+                                      fontSize: 12.sp,
                                       fontWeight: FontWeight.w500),
                                 ),
                                 Row(
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        if (amount.value > 0) {
-                                          amount.value--;
+                                        if (quantity.value > 0) {
+                                          quantity.value--;
                                         }
                                       },
                                       child: const Icon(
@@ -205,7 +204,7 @@ class FoodDetailsScreen extends StatelessWidget {
                                       ),
                                     ),
                                     ValueListenableBuilder(
-                                      valueListenable: amount,
+                                      valueListenable: quantity,
                                       builder: (context, value, child) =>
                                           Container(
                                         width: 60,
@@ -219,15 +218,15 @@ class FoodDetailsScreen extends StatelessWidget {
                                         child: Center(
                                             child: Text(
                                           "$value",
-                                          style: const TextStyle(
+                                          style:  TextStyle(
                                               fontFamily: "Poppins",
-                                              fontSize: 18),
+                                              fontSize: 18.sp),
                                         )),
                                       ),
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        amount.value++;
+                                        quantity.value++;
                                       },
                                       child: const Icon(
                                         Icons.add,

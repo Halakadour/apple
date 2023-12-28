@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -59,9 +58,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             : value == 2
                                 ? "Fast Delivery"
                                 : "Buy Grocery",
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontFamily: "Poppins",
-                            fontSize: 25,
+                            fontSize: 25.sp,
                             fontWeight: FontWeight.w700,
                             letterSpacing: .75),
                         textAlign: TextAlign.center,
@@ -69,13 +68,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       SizedBox(
                         height: .02.sh,
                       ),
-                      const Text(
+                      Text(
                         "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Color(0xff868889),
                             fontFamily: "Poppins",
-                            fontSize: 15,
+                            fontSize: 15.sp,
                             fontWeight: FontWeight.w500,
                             letterSpacing: .45),
                       ),
@@ -176,10 +175,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     valueListenable: index,
                     builder: (context, value, child) => Text(
                       value == 3 ? "Start" : "Next",
-                      style: const TextStyle(
+                      style:  TextStyle(
                         color: Color(0xff6CC51D),
                         fontFamily: "Poppins",
-                        fontSize: 15,
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.w500,
                       ),
                     ),

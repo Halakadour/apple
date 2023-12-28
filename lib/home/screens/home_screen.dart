@@ -55,11 +55,11 @@ class HomeScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                         Text(
                           "Categories",
                           style: TextStyle(
                               fontFamily: "Poppins",
-                              fontSize: 18,
+                              fontSize: 18.sp,
                               fontWeight: FontWeight.w600),
                         ),
                         IconButton(
@@ -71,10 +71,10 @@ class HomeScreen extends StatelessWidget {
                                       Categories(itemList: myTabs),
                                 ));
                           },
-                          icon: const Icon(
+                          icon:  Icon(
                             Icons.arrow_forward_ios,
                             color: Color(0xFF868889),
-                            size: 24,
+                            size: 24.sp,
                           ),
                         )
                       ],
@@ -97,11 +97,11 @@ class HomeScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                         Text(
                           "Featured products",
                           style: TextStyle(
                               fontFamily: "Poppins",
-                              fontSize: 18,
+                              fontSize: 18.sp,
                               fontWeight: FontWeight.w600),
                         ),
                         IconButton(
@@ -113,10 +113,10 @@ class HomeScreen extends StatelessWidget {
                                       Categories(itemList: myTabs),
                                 ));
                           },
-                          icon: const Icon(
+                          icon:  Icon(
                             Icons.arrow_forward_ios,
                             color: Color(0xFF868889),
-                            size: 24,
+                            size: 24.sp,
                           ),
                         )
                       ],
@@ -165,10 +165,6 @@ class HomeScreen extends StatelessWidget {
                                                 .docs[index]['rate'],
                                             weight: snapshot.requireData
                                                 .docs[index]['weight'],
-                                            quantity: snapshot.requireData
-                                                .docs[index]['quantity'],
-                                            favorite: snapshot.requireData
-                                                .docs[index]['favorite'],
                                           ))
                               : const Center(child: Text("Failed")),
                     ))
@@ -191,10 +187,10 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     hintText: "Search Keywords..",
-                    hintStyle: const TextStyle(
+                    hintStyle:  TextStyle(
                       color: Color.fromRGBO(117, 119, 121, 1),
                       fontFamily: "Poppins",
-                      fontSize: 13,
+                      fontSize: 13.sp,
                       fontWeight: FontWeight.w500,
                     ),
                     suffixIcon: Padding(

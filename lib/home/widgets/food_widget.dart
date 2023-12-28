@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,19 +6,18 @@ import '../screens/food_details_screen.dart';
 
 // ignore: must_be_immutable
 class FoodWidget extends StatelessWidget {
-  FoodWidget(
-      {super.key,
-      required this.id,
-      required this.foodColor,
-      required this.description,
-      required this.imageUrl,
-      required this.foodName,
-      required this.price,
-      required this.rate,
-      required this.itsType,
-      required this.weight,
-      required this.quantity,
-      required this.favorite});
+  FoodWidget({
+    super.key,
+    required this.id,
+    required this.foodColor,
+    required this.description,
+    required this.imageUrl,
+    required this.foodName,
+    required this.price,
+    required this.rate,
+    required this.itsType,
+    required this.weight,
+  });
   final String id;
   final String foodColor;
   final String description;
@@ -29,12 +27,10 @@ class FoodWidget extends StatelessWidget {
   final String rate;
   final String itsType;
   final String weight;
-  int quantity;
-  bool favorite;
 
   ValueNotifier<bool> isFavorite = ValueNotifier(false);
   ValueNotifier<bool> isClicked = ValueNotifier(false);
-  ValueNotifier<int> amount = ValueNotifier(0);
+  ValueNotifier<int> quantity = ValueNotifier(0);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -73,7 +69,7 @@ class FoodWidget extends StatelessWidget {
                           builder: (context) => FoodDetailsScreen(
                               id: id,
                               quantity: quantity,
-                              favorite: favorite),
+                              isFavorite: isFavorite),
                         )),
                     child: Container(
                       width: 110,
@@ -96,25 +92,25 @@ class FoodWidget extends StatelessWidget {
                   15.verticalSpace,
                   Text(
                     "\$${price.toStringAsFixed(2)}",
-                    style: const TextStyle(
+                    style:  TextStyle(
                         color: Color(0xff6CC51D),
                         fontFamily: "Poppins",
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w500),
                   ),
                   Text(
                     foodName,
-                    style: const TextStyle(
+                    style:  TextStyle(
                         fontFamily: "Poppins",
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w600),
                   ),
                   Text(
                     weight,
-                    style: const TextStyle(
+                    style:  TextStyle(
                         color: Color(0xff868889),
                         fontFamily: "Poppins",
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w500),
                   ),
                 ],
@@ -136,8 +132,8 @@ class FoodWidget extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              if (amount.value > 0) {
-                                amount.value--;
+                              if (quantity.value > 0) {
+                                quantity.value--;
                               }
                             },
                             child: const Icon(
@@ -146,20 +142,20 @@ class FoodWidget extends StatelessWidget {
                             ),
                           ),
                           ValueListenableBuilder(
-                            valueListenable: amount,
+                            valueListenable: quantity,
                             builder: (context, value, child) => SizedBox(
                               width: 60,
                               child: Center(
                                   child: Text(
                                 "$value",
-                                style: const TextStyle(
-                                    fontFamily: "Poppins", fontSize: 16),
+                                style: TextStyle(
+                                    fontFamily: "Poppins", fontSize: 16.sp),
                               )),
                             ),
                           ),
                           GestureDetector(
                             onTap: () {
-                              amount.value++;
+                              quantity.value++;
                             },
                             child: const Icon(
                               Icons.add,
@@ -178,12 +174,12 @@ class FoodWidget extends StatelessWidget {
                             color: const Color(0xff6CC51D),
                           ),
                           8.horizontalSpace,
-                          const Text(
+                           Text(
                             "Add to cart",
                             style: TextStyle(
                                 color: Color(0xff010101),
                                 fontFamily: "Poppins",
-                                fontSize: 15,
+                                fontSize: 15.sp,
                                 fontWeight: FontWeight.w500),
                           ),
                         ],

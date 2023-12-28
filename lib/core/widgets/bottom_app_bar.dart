@@ -10,6 +10,7 @@ import '../../user/screens/user_screen.dart';
 
 
 
+// ignore: must_be_immutable
 class CustomBottomAppBar extends StatefulWidget {
   CustomBottomAppBar({super.key, required this.pageIndex});
   int pageIndex;
