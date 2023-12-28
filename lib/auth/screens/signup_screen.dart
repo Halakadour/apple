@@ -1,14 +1,17 @@
-import 'package:apple/screens/login_screen.dart';
-import 'package:apple/widgets/custom_button.dart';
-import 'package:apple/widgets/text_field.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'home_screen.dart';
+import '../../core/widgets/custom_button.dart';
+import '../../home/screens/home_screen.dart';
+import '../widgets/text_field.dart';
+import 'login_screen.dart';
+
+
 
 class SignUpScreen extends StatefulWidget {
-  SignUpScreen({super.key});
+  const SignUpScreen({super.key});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();

@@ -1,10 +1,12 @@
-import 'package:apple/widgets/custom_button.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../core/widgets/custom_button.dart';
+import '../../home/screens/home_screen.dart';
 import '../widgets/text_field.dart';
-import 'home_screen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

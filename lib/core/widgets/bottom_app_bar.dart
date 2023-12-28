@@ -1,11 +1,14 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:apple/screens/home_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../screens/favorite_screen.dart';
-import '../screens/user_screen.dart';
+import '../../favorite/screens/favorite_screen.dart';
+import '../../home/screens/home_screen.dart';
+import '../../user/screens/user_screen.dart';
+
+
 
 class CustomBottomAppBar extends StatefulWidget {
   CustomBottomAppBar({super.key, required this.pageIndex});

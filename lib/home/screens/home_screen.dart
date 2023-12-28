@@ -1,14 +1,15 @@
 // ignore_for_file: unused_import
 
-import 'package:apple/screens/categories_screen.dart';
-import 'package:apple/widgets/bottom_app_bar.dart';
-import 'package:apple/widgets/food_widget.dart';
-import 'package:apple/widgets/tab_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../core/widgets/bottom_app_bar.dart';
+import '../widgets/food_widget.dart';
+import '../widgets/tab_bar.dart';
+import 'categories_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});

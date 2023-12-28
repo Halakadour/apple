@@ -1,9 +1,11 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
-import 'package:apple/screens/signup_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../auth/screens/signup_screen.dart';
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({super.key});
@@ -94,7 +96,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SignUpScreen(),
+                        builder: (context) => const SignUpScreen(),
                       ));
                 },
                 child: const Text(
@@ -166,7 +168,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SignUpScreen(),
+                            builder: (context) => const SignUpScreen(),
                           ));
                     }
                   },

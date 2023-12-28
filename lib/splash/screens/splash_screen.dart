@@ -1,8 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:apple/screens/details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../onboard/screens/details_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

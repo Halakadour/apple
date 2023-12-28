@@ -1,6 +1,8 @@
-import 'package:apple/widgets/bottom_app_bar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../core/widgets/bottom_app_bar.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
