@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,22 +6,48 @@ import 'package:flutter_svg/svg.dart';
 import '../../core/widgets/custom_button.dart';
 
 // ignore: must_be_immutable
-class FoodDetailsScreen extends StatelessWidget {
-  FoodDetailsScreen(
-      {super.key,
-      required this.id,
-      required this.quantity,
-      required this.isFavorite,
-      });
+class FoodDetailsScreen extends StatefulWidget {
+  FoodDetailsScreen({
+    super.key,
+    required this.id,
+  });
   final String id;
-  final ValueNotifier<int> quantity;
-  final ValueNotifier<bool> isFavorite;
+
+  @override
+  State<FoodDetailsScreen> createState() => _FoodDetailsScreenState();
+}
+
+class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
   final db = FirebaseFirestore.instance;
+
+  ValueNotifier<bool> isFav = ValueNotifier(false);
+
+  ValueNotifier<int> itsQuan = ValueNotifier(0);
+  void setValue() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection('fruits')
+        .doc(widget.id)
+        .get();
+    if (snapshot.exists) {
+      Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
+      if (data != null) {
+        isFav.value = data['favorite'] as bool;
+        itsQuan.value = data['quantity'] as int;
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    setValue();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-        future: db.collection('fruits').doc(id).get(),
+        future: db.collection('fruits').doc(widget.id).get(),
         builder: (context, snapshot) => snapshot.connectionState ==
                 ConnectionState.waiting
             ? const Center(
@@ -61,7 +86,7 @@ class FoodDetailsScreen extends StatelessWidget {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              icon:  Icon(
+                              icon: Icon(
                                 Icons.arrow_back,
                                 color: Colors.black,
                                 size: 30.sp,
@@ -86,38 +111,40 @@ class FoodDetailsScreen extends StatelessWidget {
                             children: [
                               Text(
                                 "\$${snapshot.requireData.data()!['price']}",
-                                style:  TextStyle(
-                                    color: Color(0xff28B446),
+                                style: TextStyle(
+                                    color: const Color(0xff28B446),
                                     fontFamily: "Poppins",
                                     fontSize: 18.sp,
                                     fontWeight: FontWeight.w600),
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  isFavorite.value = !isFavorite.value;
+                                  isFav.value = !isFav.value;
+                                  db
+                                      .doc(widget.id)
+                                      .update({'favorite': isFav.value});
                                 },
                                 child: ValueListenableBuilder(
-                                  valueListenable: isFavorite,
-                                  builder: (context, value, child) {
-                                    return SvgPicture.asset(value
-                                        ? "assets/heartFill.svg"
-                                        : "assets/heart.svg");
-                                  },
+                                  valueListenable: isFav,
+                                  builder: (context, value, child) =>
+                                      SvgPicture.asset(value
+                                          ? "assets/heartFill.svg"
+                                          : "assets/heart.svg"),
                                 ),
                               ),
                             ],
                           ),
                           Text(
                             snapshot.requireData.data()!['name'],
-                            style:  TextStyle(
+                            style: TextStyle(
                                 fontFamily: "Poppins",
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w600),
                           ),
                           Text(
                             snapshot.requireData.data()!['weight'],
-                            style:  TextStyle(
-                                color: Color(0xff868889),
+                            style: TextStyle(
+                                color: const Color(0xff868889),
                                 fontFamily: "Poppins",
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w500),
@@ -127,7 +154,7 @@ class FoodDetailsScreen extends StatelessWidget {
                             children: [
                               Text(
                                 snapshot.requireData.data()!['rate'],
-                                style:  TextStyle(
+                                style: TextStyle(
                                     fontFamily: "Poppins",
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w500),
@@ -165,8 +192,8 @@ class FoodDetailsScreen extends StatelessWidget {
                           20.verticalSpace,
                           Text(
                             snapshot.requireData.data()!['description'],
-                            style:  TextStyle(
-                                color: Color(0xff868889),
+                            style: TextStyle(
+                                color: const Color(0xff868889),
                                 fontFamily: "Poppins",
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w500,
@@ -182,10 +209,10 @@ class FoodDetailsScreen extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                 Text(
+                                Text(
                                   "Quantity",
                                   style: TextStyle(
-                                      color: Color(0xff868889),
+                                      color: const Color(0xff868889),
                                       fontFamily: "Poppins",
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w500),
@@ -194,8 +221,10 @@ class FoodDetailsScreen extends StatelessWidget {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        if (quantity.value > 0) {
-                                          quantity.value--;
+                                        if (itsQuan.value > 0) {
+                                          itsQuan.value--;
+                                          db.doc(widget.id).update(
+                                              {'quantity': itsQuan.value});
                                         }
                                       },
                                       child: const Icon(
@@ -204,7 +233,7 @@ class FoodDetailsScreen extends StatelessWidget {
                                       ),
                                     ),
                                     ValueListenableBuilder(
-                                      valueListenable: quantity,
+                                      valueListenable: itsQuan,
                                       builder: (context, value, child) =>
                                           Container(
                                         width: 60,
@@ -218,7 +247,7 @@ class FoodDetailsScreen extends StatelessWidget {
                                         child: Center(
                                             child: Text(
                                           "$value",
-                                          style:  TextStyle(
+                                          style: TextStyle(
                                               fontFamily: "Poppins",
                                               fontSize: 18.sp),
                                         )),
@@ -226,7 +255,9 @@ class FoodDetailsScreen extends StatelessWidget {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        quantity.value++;
+                                        itsQuan.value++;
+                                        db.doc(widget.id).update(
+                                            {'quantity': itsQuan.value});
                                       },
                                       child: const Icon(
                                         Icons.add,

@@ -72,7 +72,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: Color(0xff868889),
+                            color: const Color(0xff868889),
                             fontFamily: "Poppins",
                             fontSize: 15.sp,
                             fontWeight: FontWeight.w500,
@@ -176,7 +176,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     builder: (context, value, child) => Text(
                       value == 3 ? "Start" : "Next",
                       style:  TextStyle(
-                        color: Color(0xff6CC51D),
+                        color: const Color(0xff6CC51D),
                         fontFamily: "Poppins",
                         fontSize: 15.sp,
                         fontWeight: FontWeight.w500,

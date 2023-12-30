@@ -30,7 +30,7 @@ class MyTextField extends StatelessWidget {
             ),
             hintText: hint,
             hintStyle: TextStyle(
-                color: Color(0xff868889),
+                color: const Color(0xff868889),
                 fontFamily: "Poppins",
                 fontSize: 15.sp,
                 fontWeight: FontWeight.w500,

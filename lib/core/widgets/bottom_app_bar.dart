@@ -47,7 +47,7 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const FavoriteScreen(),
+                    builder: (context) =>  FavoriteScreen(),
                   ));
               break;
           }

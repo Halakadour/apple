@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class FavoriteScreen extends StatelessWidget {
-  FavoriteScreen({
+class CartScreen extends StatelessWidget {
+  CartScreen({
     super.key,
   });
   final db = FirebaseFirestore.instance;
@@ -29,7 +29,7 @@ class FavoriteScreen extends StatelessWidget {
                 color: Colors.black,
               )),
           title: Text(
-            "Favorites",
+            "Shopping Cart",
             style: TextStyle(
                 color: Colors.black,
                 fontFamily: "Poppins",
@@ -43,7 +43,7 @@ class FavoriteScreen extends StatelessWidget {
               20,
             ),
             child: FutureBuilder(
-              future: db.collection('favorite').get(),
+              future: db.collection('cart').get(),
               builder: (context, snapshot) => snapshot.connectionState ==
                       ConnectionState.waiting
                   ? const Center(

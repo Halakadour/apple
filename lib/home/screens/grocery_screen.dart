@@ -91,6 +91,12 @@ class GroceryScreen extends StatelessWidget {
                                         ['rate'],
                                     weight: snapshot.requireData.docs[index]
                                         ['weight'],
+                                    quantity: snapshot.requireData.docs[index]
+                                        ['quantity'],
+                                    favorite: snapshot.requireData.docs[index]
+                                        ['favorite'],
+                                    cart: snapshot.requireData.docs[index]
+                                        ['cart'],
                                   ))
                       : const Center(child: Text("Failed")),
             ))

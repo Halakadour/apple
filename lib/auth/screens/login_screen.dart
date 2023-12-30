@@ -24,6 +24,50 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool isLoading = false;
 
+  void signIn() async {
+    if (!isLoading && formkey.currentState!.validate()) {
+      try {
+        setState(() {
+          isLoading = true;
+        });
+        final credential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text.toString().trim(),
+          password: passwordController.text,
+        );
+        setState(() {
+          isLoading = false;
+        });
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            ));
+      } on FirebaseAuthException catch (e) {
+        setState(() {
+          isLoading = false;
+        });
+        if (e.code == 'weak-password') {
+          displayMessage('The password provided is too weak.');
+        } else if (e.code == 'email-already-in-use') {
+          displayMessage('The account already exists for that email.');
+        }
+      } catch (e) {
+        setState(() {
+          isLoading = false;
+        });
+        displayMessage(e.toString());
+      }
+    }
+  }
+
+  void displayMessage(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(title: Text(message)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Text(
                       "Sign in to your account",
                       style: TextStyle(
-                          color: Color(0xff868889),
+                          color: const Color(0xff868889),
                           fontFamily: "Poppins",
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w400,
@@ -100,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Text(
                               "Forgot password",
                               style: TextStyle(
-                                  color: Color(0xff407EC7),
+                                  color: const Color(0xff407EC7),
                                   fontFamily: "Poppins",
                                   fontSize: 15.sp,
                                   fontWeight: FontWeight.w500,
@@ -114,41 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     MyButton(
                         name: isLoading ? "Loading" : "Login",
                         onTap: () async {
-                          if (!isLoading && formkey.currentState!.validate()) {
-                            try {
-                              setState(() {
-                                isLoading = true;
-                              });
-                              final credential = await FirebaseAuth.instance
-                                  .createUserWithEmailAndPassword(
-                                email: emailController.text,
-                                password: passwordController.text,
-                              );
-                              setState(() {
-                                isLoading = false;
-                              });
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => HomeScreen(),
-                                  ));
-                            } on FirebaseAuthException catch (e) {
-                              setState(() {
-                                isLoading = false;
-                              });
-                              if (e.code == 'weak-password') {
-                                print('The password provided is too weak.');
-                              } else if (e.code == 'email-already-in-use') {
-                                print(
-                                    'The account already exists for that email.');
-                              }
-                            } catch (e) {
-                              setState(() {
-                                isLoading = false;
-                              });
-                              print(e);
-                            }
-                          }
+                          signIn();
                         }),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -156,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Text(
                           "Don’t have an account ?",
                           style: TextStyle(
-                              color: Color(0xff868889),
+                              color: const Color(0xff868889),
                               fontFamily: "Poppins",
                               fontSize: 15.sp,
                               fontWeight: FontWeight.w300,

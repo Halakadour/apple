@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,19 +6,21 @@ import 'package:flutter_svg/svg.dart';
 import '../screens/food_details_screen.dart';
 
 // ignore: must_be_immutable
-class FoodWidget extends StatelessWidget {
-  FoodWidget({
-    super.key,
-    required this.id,
-    required this.foodColor,
-    required this.description,
-    required this.imageUrl,
-    required this.foodName,
-    required this.price,
-    required this.rate,
-    required this.itsType,
-    required this.weight,
-  });
+class FoodWidget extends StatefulWidget {
+  FoodWidget(
+      {super.key,
+      required this.id,
+      required this.foodColor,
+      required this.description,
+      required this.imageUrl,
+      required this.foodName,
+      required this.price,
+      required this.rate,
+      required this.itsType,
+      required this.weight,
+      required this.quantity,
+      required this.favorite,
+      required this.cart});
   final String id;
   final String foodColor;
   final String description;
@@ -27,10 +30,55 @@ class FoodWidget extends StatelessWidget {
   final String rate;
   final String itsType;
   final String weight;
+  int quantity;
+  bool favorite;
+  bool cart;
 
-  ValueNotifier<bool> isFavorite = ValueNotifier(false);
+  @override
+  State<FoodWidget> createState() => _FoodWidgetState();
+}
+
+class _FoodWidgetState extends State<FoodWidget> {
+  ValueNotifier<bool> isFav = ValueNotifier(false);
+
   ValueNotifier<bool> isClicked = ValueNotifier(false);
-  ValueNotifier<int> quantity = ValueNotifier(0);
+
+  ValueNotifier<int> itsQuan = ValueNotifier(0);
+  @override
+  void initState() {
+    isFav.value = widget.favorite;
+    isClicked.value = widget.cart;
+    itsQuan.value = widget.quantity;
+    super.initState();
+  }
+
+  final db = FirebaseFirestore.instance.collection("fruits");
+
+  Future addCartList(String id) async {
+    await FirebaseFirestore.instance.collection('cart').add({
+      'id': id,
+    });
+  }
+
+  Future addFavoriteItem(String id) async {
+    await FirebaseFirestore.instance.collection('favorite').add({
+      'id': id,
+    });
+  }
+
+  Future removeFavoriteItem(String id) async {
+    DocumentSnapshot snapshot =
+        await FirebaseFirestore.instance.collection('favorite').doc(id).get();
+    if (snapshot.exists) {
+      // Document with the specified ID exists, so we can delete it
+      await FirebaseFirestore.instance.collection('favorite').doc(id).delete();
+      print('Document with ID $id deleted successfully');
+    } else {
+      // Document with the specified ID does not exist
+      print('Document with ID $id does not exist');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,15 +97,20 @@ class FoodWidget extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          isFavorite.value = !isFavorite.value;
+                          isFav.value = !isFav.value;
+                          if (isFav.value) {
+                            addFavoriteItem(widget.id);
+                          } else {
+                            removeFavoriteItem(widget.id);
+                          }
+                          db.doc(widget.id).update({'favorite': isFav.value});
                         },
                         child: ValueListenableBuilder(
-                          valueListenable: isFavorite,
-                          builder: (context, value, child) {
-                            return SvgPicture.asset(value
-                                ? "assets/heartFill.svg"
-                                : "assets/heart.svg");
-                          },
+                          valueListenable: isFav,
+                          builder: (context, value, child) => SvgPicture.asset(
+                              value
+                                  ? "assets/heartFill.svg"
+                                  : "assets/heart.svg"),
                         ),
                       ),
                     ],
@@ -67,9 +120,8 @@ class FoodWidget extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => FoodDetailsScreen(
-                              id: id,
-                              quantity: quantity,
-                              isFavorite: isFavorite),
+                            id: widget.id,
+                          ),
                         )),
                     child: Container(
                       width: 110,
@@ -77,12 +129,12 @@ class FoodWidget extends StatelessWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Color(
-                          int.parse("0xFF$foodColor"),
+                          int.parse("0xFF${widget.foodColor}"),
                         ).withOpacity(.2),
                       ),
                       child: FadeInImage.assetNetwork(
                         placeholder: "assets/aocado.png",
-                        image: imageUrl,
+                        image: widget.imageUrl,
                         imageErrorBuilder: (context, error, stackTrace) =>
                             Image.asset("assets/aocado.png"),
                         width: 100,
@@ -91,24 +143,24 @@ class FoodWidget extends StatelessWidget {
                   ),
                   15.verticalSpace,
                   Text(
-                    "\$${price.toStringAsFixed(2)}",
-                    style:  TextStyle(
-                        color: Color(0xff6CC51D),
+                    "\$${widget.price.toStringAsFixed(2)}",
+                    style: TextStyle(
+                        color: const Color(0xff6CC51D),
                         fontFamily: "Poppins",
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500),
                   ),
                   Text(
-                    foodName,
-                    style:  TextStyle(
+                    widget.foodName,
+                    style: TextStyle(
                         fontFamily: "Poppins",
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    weight,
-                    style:  TextStyle(
-                        color: Color(0xff868889),
+                    widget.weight,
+                    style: TextStyle(
+                        color: const Color(0xff868889),
                         fontFamily: "Poppins",
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500),
@@ -122,7 +174,9 @@ class FoodWidget extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                isClicked.value = !isClicked.value;
+                isClicked.value = true;
+                addCartList(widget.id);
+                db.doc(widget.id).update({'cart': isClicked.value});
               },
               child: ValueListenableBuilder(
                 valueListenable: isClicked,
@@ -132,8 +186,12 @@ class FoodWidget extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              if (quantity.value > 0) {
-                                quantity.value--;
+                              if (widget.quantity > 0) {
+                                itsQuan.value--;
+
+                                db
+                                    .doc(widget.id)
+                                    .update({'quantity': itsQuan.value});
                               }
                             },
                             child: const Icon(
@@ -142,12 +200,12 @@ class FoodWidget extends StatelessWidget {
                             ),
                           ),
                           ValueListenableBuilder(
-                            valueListenable: quantity,
+                            valueListenable: itsQuan,
                             builder: (context, value, child) => SizedBox(
                               width: 60,
                               child: Center(
                                   child: Text(
-                                "$value",
+                                "${itsQuan.value}",
                                 style: TextStyle(
                                     fontFamily: "Poppins", fontSize: 16.sp),
                               )),
@@ -155,7 +213,11 @@ class FoodWidget extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () {
-                              quantity.value++;
+                              itsQuan.value++;
+
+                              db
+                                  .doc(widget.id)
+                                  .update({'quantity': itsQuan.value});
                             },
                             child: const Icon(
                               Icons.add,
@@ -174,10 +236,10 @@ class FoodWidget extends StatelessWidget {
                             color: const Color(0xff6CC51D),
                           ),
                           8.horizontalSpace,
-                           Text(
+                          Text(
                             "Add to cart",
                             style: TextStyle(
-                                color: Color(0xff010101),
+                                color: const Color(0xff010101),
                                 fontFamily: "Poppins",
                                 fontSize: 15.sp,
                                 fontWeight: FontWeight.w500),

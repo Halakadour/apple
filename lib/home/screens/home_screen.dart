@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import
 
+import 'package:apple/core/widgets/float_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -30,14 +31,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       bottomNavigationBar: CustomBottomAppBar(pageIndex: 0),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: const Color(0xff6CC51D),
-        child: SvgPicture.asset(
-          "assets/bag.svg",
-          width: 20,
-        ),
-      ),
+      floatingActionButton: const MyFloatButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       body: Padding(
         padding: const EdgeInsets.only(top: 40),
@@ -55,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                         Text(
+                        Text(
                           "Categories",
                           style: TextStyle(
                               fontFamily: "Poppins",
@@ -71,9 +65,9 @@ class HomeScreen extends StatelessWidget {
                                       Categories(itemList: myTabs),
                                 ));
                           },
-                          icon:  Icon(
+                          icon: Icon(
                             Icons.arrow_forward_ios,
-                            color: Color(0xFF868889),
+                            color: const Color(0xFF868889),
                             size: 24.sp,
                           ),
                         )
@@ -97,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                         Text(
+                        Text(
                           "Featured products",
                           style: TextStyle(
                               fontFamily: "Poppins",
@@ -113,9 +107,9 @@ class HomeScreen extends StatelessWidget {
                                       Categories(itemList: myTabs),
                                 ));
                           },
-                          icon:  Icon(
+                          icon: Icon(
                             Icons.arrow_forward_ios,
-                            color: Color(0xFF868889),
+                            color: const Color(0xFF868889),
                             size: 24.sp,
                           ),
                         )
@@ -165,6 +159,12 @@ class HomeScreen extends StatelessWidget {
                                                 .docs[index]['rate'],
                                             weight: snapshot.requireData
                                                 .docs[index]['weight'],
+                                            quantity: snapshot.requireData
+                                                .docs[index]['quantity'],
+                                            favorite: snapshot.requireData
+                                                .docs[index]['favorite'],
+                                            cart: snapshot.requireData
+                                                .docs[index]['cart'],
                                           ))
                               : const Center(child: Text("Failed")),
                     ))
@@ -187,8 +187,8 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     hintText: "Search Keywords..",
-                    hintStyle:  TextStyle(
-                      color: Color.fromRGBO(117, 119, 121, 1),
+                    hintStyle: TextStyle(
+                      color: const Color.fromRGBO(117, 119, 121, 1),
                       fontFamily: "Poppins",
                       fontSize: 13.sp,
                       fontWeight: FontWeight.w500,

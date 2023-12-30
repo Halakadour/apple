@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable, use_build_context_synchronously, avoid_print
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,7 +26,59 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   final formkey = GlobalKey<FormState>();
 
-  bool isloading = false;
+  bool isLoading = false;
+
+  void signUp() async {
+    if (!isLoading && formkey.currentState!.validate()) {
+      try {
+        setState(() {
+          isLoading = true;
+        });
+        final credential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text.toString().trim(),
+          password: passwordController.text,
+        );
+        setState(() {
+          isLoading = false;
+        });
+        addUserDetails(nameController.text.trim(), emailController.text.trim());
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            ));
+      } on FirebaseAuthException catch (e) {
+        setState(() {
+          isLoading = false;
+        });
+        if (e.code == 'weak-password') {
+          displayMessage('The password provided is too weak.');
+        } else if (e.code == 'email-already-in-use') {
+          displayMessage('The account already exists for that email.');
+        }
+      } catch (e) {
+        setState(() {
+          isLoading = false;
+        });
+        displayMessage(e.toString());
+      }
+    }
+  }
+
+  void displayMessage(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(title: Text(message)),
+    );
+  }
+
+  Future addUserDetails(String name, String email) async {
+    await FirebaseFirestore.instance.collection('users').add({
+      'name': name,
+      'email': email,
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +100,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-               Text(
+              Text(
                 "Create account",
                 style: TextStyle(
                     fontFamily: "Poppins",
@@ -55,10 +108,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     fontWeight: FontWeight.w600,
                     letterSpacing: .75),
               ),
-               Text(
+              Text(
                 "Quickly create account",
                 style: TextStyle(
-                    color: Color(0xff868889),
+                    color: const Color(0xff868889),
                     fontFamily: "Poppins",
                     fontSize: 15.sp,
                     fontWeight: FontWeight.w400,
@@ -109,42 +162,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: .02.sh,
               ),
               MyButton(
-                  name: isloading ? "Loading" : "Signup",
+                  name: isLoading ? "Loading" : "Signup",
                   onTap: () async {
-                    if (!isloading && formkey.currentState!.validate()) {
-                      try {
-                        setState(() {
-                          isloading = true;
-                        });
-                        final credential = await FirebaseAuth.instance
-                            .createUserWithEmailAndPassword(
-                          email: emailController.text,
-                          password: passwordController.text,
-                        );
-                        setState(() {
-                          isloading = false;
-                        });
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HomeScreen(),
-                            ));
-                      } on FirebaseAuthException catch (e) {
-                        setState(() {
-                          isloading = false;
-                        });
-                        if (e.code == 'weak-password') {
-                          print('The password provided is too weak.');
-                        } else if (e.code == 'email-already-in-use') {
-                          print('The account already exists for that email.');
-                        }
-                      } catch (e) {
-                        setState(() {
-                          isloading = false;
-                        });
-                        print(e);
-                      }
-                    }
+                    signUp();
                   }),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -152,7 +172,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Text(
                     "Don’t have an account ?",
                     style: TextStyle(
-                        color: Color(0xff868889),
+                        color: const Color(0xff868889),
                         fontFamily: "Poppins",
                         fontSize: 15.sp,
                         fontWeight: FontWeight.w300,

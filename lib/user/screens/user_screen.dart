@@ -1,7 +1,7 @@
+import 'package:apple/core/widgets/float_button.dart';
 import 'package:apple/user/widgets/my_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../core/widgets/bottom_app_bar.dart';
 
@@ -11,30 +11,23 @@ class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF4F5F9),
+      backgroundColor: const Color(0xffF4F5F9),
       bottomNavigationBar: CustomBottomAppBar(pageIndex: 1),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: const Color(0xff6CC51D),
-        child: SvgPicture.asset(
-          "assets/bag.svg",
-          width: 20,
-        ),
-      ),
+      floatingActionButton: const MyFloatButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       body: Column(children: [
         Container(
             color: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 30),
             height: .2.sh,
             child: Row(
               children: [
                 Container(
                     width: .2.sw,
                     height: .2.sh,
-                    margin: EdgeInsets.only(top: 30),
+                    margin: const EdgeInsets.only(top: 30),
                     clipBehavior: Clip.hardEdge,
-                    decoration: BoxDecoration(shape: BoxShape.circle),
+                    decoration: const BoxDecoration(shape: BoxShape.circle),
                     child: Image.asset(
                       "assets/portfolio.png",
                       fit: BoxFit.contain,
@@ -56,7 +49,7 @@ class UserScreen extends StatelessWidget {
                     Text(
                       "oliviaaustin@gmail.com",
                       style: TextStyle(
-                          color: Color(0xff868889),
+                          color: const Color(0xff868889),
                           fontFamily: "Poppins",
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w400,
@@ -67,35 +60,35 @@ class UserScreen extends StatelessWidget {
               ],
             )),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           height: .65.sh,
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            MyListTile(ImagePath: "assets/person.svg", title: "About me"),
+          child: const Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            MyListTile(imagePath: "assets/person.svg", title: "About me"),
             MyListTile(
-              ImagePath: "assets/box.svg",
+              imagePath: "assets/box.svg",
               title: "My Orders",
             ),
             MyListTile(
-              ImagePath: "assets/favorite.svg",
+              imagePath: "assets/favorite.svg",
               title: "My Favorites",
             ),
             MyListTile(
-              ImagePath: "assets/location.svg",
+              imagePath: "assets/location.svg",
               title: "My Address",
             ),
             MyListTile(
-              ImagePath: "assets/card.svg",
+              imagePath: "assets/card.svg",
               title: "Credit Cards",
             ),
             MyListTile(
-              ImagePath: "assets/dollar.svg",
+              imagePath: "assets/dollar.svg",
               title: "Transactions",
             ),
             MyListTile(
-              ImagePath: "assets/bill.svg",
+              imagePath: "assets/bill.svg",
               title: "Notifications",
             ),
-            MyListTile(ImagePath: "assets/arrow.svg", title: "Sign out")
+            MyListTile(imagePath: "assets/arrow.svg", title: "Sign out")
           ]),
         )
       ]),
