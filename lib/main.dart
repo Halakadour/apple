@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'package:apple/home/screens/home_screen.dart';
+import 'package:apple/notification_service.dart';
 import 'package:apple/onboard/screens/details_screen.dart';
 import 'package:apple/splash/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await NotificationService.init();
+  NotificationService.listen();
   runApp(const MainApp());
 }
 
