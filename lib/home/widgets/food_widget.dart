@@ -42,7 +42,7 @@ class _FoodWidgetState extends State<FoodWidget> {
   ValueNotifier<bool> isFav = ValueNotifier(false);
 
   ValueNotifier<bool> isClicked = ValueNotifier(false);
-
+  
   ValueNotifier<int> itsQuan = ValueNotifier(0);
   @override
   void initState() {
@@ -58,6 +58,12 @@ class _FoodWidgetState extends State<FoodWidget> {
     await FirebaseFirestore.instance.collection('cart').add({
       'id': id,
     });
+  }
+
+  Future removeCartiteItem(String id) async {
+    await FirebaseFirestore.instance.collection('cart').doc(id).delete();
+    db.doc(widget.id).update({'quantity': 0});
+    db.doc(widget.id).update({'cart': false});
   }
 
   Future addFavoriteItem(String id) async {
@@ -174,9 +180,13 @@ class _FoodWidgetState extends State<FoodWidget> {
             ),
             GestureDetector(
               onTap: () {
-                isClicked.value = true;
-                addCartList(widget.id);
+                isClicked.value = !isClicked.value;
                 db.doc(widget.id).update({'cart': isClicked.value});
+                if (isClicked.value) {
+                  addCartList(widget.id);
+                } else {
+                  removeCartiteItem(widget.id);
+                }
               },
               child: ValueListenableBuilder(
                 valueListenable: isClicked,

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../core/widgets/food_tile.dart';
+
 class FavoriteScreen extends StatelessWidget {
   FavoriteScreen({
     super.key,
@@ -58,14 +60,14 @@ class FavoriteScreen extends StatelessWidget {
                                     children: [
                                       150.verticalSpace,
                                       SvgPicture.asset(
-                                        "assets/bag.svg",
+                                        "assets/favorite.svg",
                                         // ignore: deprecated_member_use
                                         color: const Color(0xff6CC51D),
                                         width: .25.sw,
                                       ),
                                       40.verticalSpace,
                                       Text(
-                                        "Your cart is empty !",
+                                        "Your favorite is empty !",
                                         style: TextStyle(
                                           fontFamily: "Poppins",
                                           fontSize: 20.sp,
@@ -87,7 +89,7 @@ class FavoriteScreen extends StatelessWidget {
                                     ],
                                   ),
                                   MyButton(
-                                      name: "Start shopping",
+                                      name: "Start favoring",
                                       onTap: () {
                                         Navigator.pushReplacement(
                                             context,
@@ -101,148 +103,33 @@ class FavoriteScreen extends StatelessWidget {
                               child: ListView.builder(
                               itemCount: snapshot.data?.size,
                               itemBuilder: (context, index) => FutureBuilder(
-                                future: db
-                                    .collection('fruits')
-                                    .doc(snapshot.requireData.docs[index]['id'])
-                                    .get(),
-                                builder: (context, snapshot) => snapshot
-                                            .connectionState ==
-                                        ConnectionState.waiting
-                                    ? const Center(
-                                        child: CircularProgressIndicator(),
-                                      )
-                                    : Container(
-                                        margin:
-                                            const EdgeInsets.only(bottom: 10),
-                                        padding: const EdgeInsets.all(10),
-                                        color: Colors.white,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  width: 60,
-                                                  height: 60,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: Color(
-                                                      int.parse(
-                                                          "0xFF${snapshot.requireData.data()!['color']}"),
-                                                    ).withOpacity(.2),
-                                                  ),
-                                                  child:
-                                                      FadeInImage.assetNetwork(
-                                                    placeholder:
-                                                        "assets/aocado.png",
-                                                    image: snapshot.requireData
-                                                        .data()!['image'],
-                                                    imageErrorBuilder: (context,
-                                                            error,
-                                                            stackTrace) =>
-                                                        Image.asset(
-                                                            "assets/aocado.png"),
-                                                    width: 70,
-                                                  ),
-                                                ),
-                                                10.horizontalSpace,
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "\$${snapshot.requireData.data()!['price']}x${snapshot.requireData.data()!['quantity']}",
-                                                      style: TextStyle(
-                                                          color: const Color(
-                                                              0xff28B446),
-                                                          fontFamily: "Poppins",
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                    Text(
-                                                      snapshot.requireData
-                                                          .data()!['name'],
-                                                      style: TextStyle(
-                                                          fontFamily: "Poppins",
-                                                          fontSize: 14.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                    Text(
-                                                      snapshot.requireData
-                                                          .data()!['weight'],
-                                                      style: TextStyle(
-                                                          color: const Color(
-                                                              0xff868889),
-                                                          fontFamily: "Poppins",
-                                                          fontSize: 10.sp,
-                                                          fontWeight:
-                                                              FontWeight.w500),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            Column(
-                                              children: [
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    db
-                                                        .doc(snapshot
-                                                            .requireData.id)
-                                                        .update({
-                                                      'quantity': snapshot
-                                                                  .requireData
-                                                                  .data()![
-                                                              'quantity'] +
-                                                          1
-                                                    });
-                                                  },
-                                                  child: const Icon(
-                                                    Icons.add,
-                                                    color: Color(0xff6CC51D),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                    width: 60,
-                                                    child: Center(
-                                                        child: Text(
-                                                      "${snapshot.requireData.data()!['quantity']}",
-                                                      style: TextStyle(
-                                                          fontFamily: "Poppins",
-                                                          fontSize: 16.sp),
-                                                    ))),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    if (snapshot.requireData
-                                                            .data()!['quantity']
-                                                            .value >
-                                                        0) {
-                                                      db
-                                                          .doc(snapshot
-                                                              .requireData.id)
-                                                          .update({
-                                                        'quantity': snapshot
-                                                                    .requireData
-                                                                    .data()![
-                                                                'quantity'] -
-                                                            1
-                                                      });
-                                                    }
-                                                  },
-                                                  child: const Icon(
-                                                    Icons.remove,
-                                                    color: Color(0xff6CC51D),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                              ),
+                                  future: db
+                                      .collection('fruits')
+                                      .doc(snapshot.requireData.docs[index]
+                                          ['id'])
+                                      .get(),
+                                  builder: (context, snapshot) => snapshot
+                                              .connectionState ==
+                                          ConnectionState.waiting
+                                      ? const Center(
+                                          child: CircularProgressIndicator(),
+                                        )
+                                      : MyFoodTile(
+                                          id: snapshot.requireData.id,
+                                          foodColor: snapshot.requireData
+                                              .data()!['color'],
+                                          imageUrl: snapshot.requireData
+                                              .data()!['image'],
+                                          foodName: snapshot.requireData
+                                              .data()!['name'],
+                                          price: snapshot.requireData
+                                              .data()!['price'],
+                                          weight: snapshot.requireData
+                                              .data()!['weight'],
+                                          quantity: snapshot.requireData
+                                              .data()!['quantity'],
+                                          cart: snapshot.requireData
+                                              .data()!['cart'])),
                             ))
                       : const Center(child: Text("Failed")),
             )));
