@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import
 
+import 'package:apple/core/constants/colors.dart';
 import 'package:apple/core/widgets/float_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -109,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                           },
                           icon: Icon(
                             Icons.arrow_forward_ios,
-                            color: const Color(0xFF868889),
+                            color: grayColor,
                             size: 24.sp,
                           ),
                         )
@@ -188,7 +189,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     hintText: "Search Keywords..",
                     hintStyle: TextStyle(
-                      color: const Color.fromRGBO(117, 119, 121, 1),
+                      color:const Color(0xFF757779),
                       fontFamily: "Poppins",
                       fontSize: 13.sp,
                       fontWeight: FontWeight.w500,

@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:apple/core/constants/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +15,7 @@ class GroceryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF4F5F9),
+      backgroundColor: lightGray,
       appBar: AppBar(
         toolbarHeight: 70,
         centerTitle: true,

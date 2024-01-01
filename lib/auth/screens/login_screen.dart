@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable, use_build_context_synchronously, avoid_print
 
+import 'package:apple/core/constants/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -82,9 +83,9 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 18),
             width: 1.sw,
             height: .55.sh,
-            decoration: const BoxDecoration(
-              color: Color(0xffF4F5F9),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+            decoration:  BoxDecoration(
+              color: lightGray,
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
             ),
             child: Form(
               key: formkey,
@@ -102,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Text(
                       "Sign in to your account",
                       style: TextStyle(
-                          color: const Color(0xff868889),
+                          color: grayColor,
                           fontFamily: "Poppins",
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w400,
@@ -166,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Text(
                           "Don’t have an account ?",
                           style: TextStyle(
-                              color: const Color(0xff868889),
+                              color: grayColor,
                               fontFamily: "Poppins",
                               fontSize: 15.sp,
                               fontWeight: FontWeight.w300,

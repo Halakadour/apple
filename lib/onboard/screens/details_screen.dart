@@ -1,8 +1,10 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
+import 'package:apple/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../auth/screens/signup_screen.dart';
 
@@ -72,7 +74,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: const Color(0xff868889),
+                            color: grayColor,
                             fontFamily: "Poppins",
                             fontSize: 15.sp,
                             fontWeight: FontWeight.w500,
@@ -116,7 +118,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     width: .02.sw,
                     decoration: BoxDecoration(
                         color: value == 1
-                            ? const Color(0xff6CC51D)
+                            ? greenColor
                             : const Color(0xffDCDCDC),
                         shape: BoxShape.circle),
                   ),
@@ -131,7 +133,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     width: .02.sw,
                     decoration: BoxDecoration(
                         color: value == 2
-                            ? const Color(0xff6CC51D)
+                            ? greenColor
                             : const Color(0xffDCDCDC),
                         shape: BoxShape.circle),
                   ),
@@ -146,14 +148,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     width: .02.sw,
                     decoration: BoxDecoration(
                         color: value == 3
-                            ? const Color(0xff6CC51D)
+                            ? greenColor
                             : const Color(0xffDCDCDC),
                         shape: BoxShape.circle),
                   ),
                 ),
               ]),
               TextButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (index.value < 3) {
                       index.value++;
                       _pageController.animateToPage(
@@ -162,8 +164,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         curve: Curves.ease,
                       );
                     } else {
-                      // final SharedPreferences prefs = await SharedPreferences.getInstance();
-                      // await prefs.setBool('firstTime', true);
+                      final SharedPreferences prefs = await SharedPreferences.getInstance();
+                      await prefs.setBool('firstTime', true);
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
@@ -176,7 +178,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     builder: (context, value, child) => Text(
                       value == 3 ? "Start" : "Next",
                       style:  TextStyle(
-                        color: const Color(0xff6CC51D),
+                        color: greenColor,
                         fontFamily: "Poppins",
                         fontSize: 15.sp,
                         fontWeight: FontWeight.w500,

@@ -1,3 +1,4 @@
+import 'package:apple/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,7 +11,7 @@ class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF4F5F9),
+      backgroundColor: lightGray,
       appBar: AppBar(
         toolbarHeight: 70,
         centerTitle: true,
@@ -24,12 +25,12 @@ class Categories extends StatelessWidget {
               Icons.arrow_back,
               color: Colors.black,
             )),
-        title: const Text(
+        title: Text(
           "Categories",
           style: TextStyle(
               color: Colors.black,
               fontFamily: "Poppins",
-              fontSize: 18,
+              fontSize: 18.sp,
               fontWeight: FontWeight.w500,
               letterSpacing: .54),
         ),

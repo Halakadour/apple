@@ -1,3 +1,4 @@
+import 'package:apple/core/constants/colors.dart';
 import 'package:apple/core/widgets/custom_button.dart';
 import 'package:apple/home/screens/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,7 +17,7 @@ class FavoriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xffF4F5F9),
+        backgroundColor: lightGray,
         appBar: AppBar(
           toolbarHeight: 70,
           centerTitle: true,
@@ -62,7 +63,7 @@ class FavoriteScreen extends StatelessWidget {
                                       SvgPicture.asset(
                                         "assets/favorite.svg",
                                         // ignore: deprecated_member_use
-                                        color: const Color(0xff6CC51D),
+                                        color: greenColor,
                                         width: .25.sw,
                                       ),
                                       40.verticalSpace,
@@ -103,33 +104,51 @@ class FavoriteScreen extends StatelessWidget {
                               child: ListView.builder(
                               itemCount: snapshot.data?.size,
                               itemBuilder: (context, index) => FutureBuilder(
-                                  future: db
-                                      .collection('fruits')
-                                      .doc(snapshot.requireData.docs[index]
-                                          ['id'])
-                                      .get(),
-                                  builder: (context, snapshot) => snapshot
-                                              .connectionState ==
-                                          ConnectionState.waiting
-                                      ? const Center(
-                                          child: CircularProgressIndicator(),
-                                        )
-                                      : MyFoodTile(
-                                          id: snapshot.requireData.id,
-                                          foodColor: snapshot.requireData
-                                              .data()!['color'],
-                                          imageUrl: snapshot.requireData
-                                              .data()!['image'],
-                                          foodName: snapshot.requireData
-                                              .data()!['name'],
-                                          price: snapshot.requireData
-                                              .data()!['price'],
-                                          weight: snapshot.requireData
-                                              .data()!['weight'],
-                                          quantity: snapshot.requireData
-                                              .data()!['quantity'],
-                                          cart: snapshot.requireData
-                                              .data()!['cart'])),
+                                future: db
+                                    .collection('fruits')
+                                    .doc(snapshot.requireData.docs[index]['id'])
+                                    .get(),
+                                builder: (context, snapshot) => snapshot
+                                            .connectionState ==
+                                        ConnectionState.waiting
+                                    ? const Center(
+                                        child: CircularProgressIndicator(),
+                                      )
+                                    : MyFoodTile(
+                                        id: snapshot.requireData.id,
+                                        foodColor: snapshot.requireData
+                                            .data()!['color'],
+                                        imageUrl: snapshot.requireData
+                                            .data()!['image'],
+                                        foodName: snapshot.requireData
+                                            .data()!['name'],
+                                        price: snapshot.requireData
+                                            .data()!['price'],
+                                        weight: snapshot.requireData
+                                            .data()!['weight'],
+                                        quantity: snapshot.requireData
+                                            .data()!['quantity'],
+                                        cart: snapshot.requireData
+                                            .data()!['cart'],
+                                        onPressed: (context) async {
+                                          await FirebaseFirestore.instance
+                                              .collection('favorite')
+                                              .where('id',
+                                                  isEqualTo:
+                                                      snapshot.requireData.id)
+                                              .get()
+                                              .then((QuerySnapshot
+                                                  querySnapshot) {
+                                            querySnapshot.docs.forEach((doc) {
+                                              doc.reference.delete();
+                                            });
+                                          });
+                                          db
+                                              .doc(snapshot.requireData.id)
+                                              .update({'favorite': false});
+                                        },
+                                      ),
+                              ),
                             ))
                       : const Center(child: Text("Failed")),
             )));

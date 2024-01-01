@@ -1,3 +1,4 @@
+import 'package:apple/core/constants/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +8,7 @@ import '../../core/widgets/custom_button.dart';
 
 // ignore: must_be_immutable
 class FoodDetailsScreen extends StatefulWidget {
-  FoodDetailsScreen({
+  const FoodDetailsScreen({
     super.key,
     required this.id,
   });
@@ -99,10 +100,10 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                     height: .6.sh,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 26),
-                    decoration: const BoxDecoration(
-                        color: Color(0xffF4F5F9),
+                    decoration:  BoxDecoration(
+                        color: lightGray,
                         borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(10))),
+                           const BorderRadius.vertical(top: Radius.circular(10))),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -112,7 +113,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                               Text(
                                 "\$${snapshot.requireData.data()!['price']}",
                                 style: TextStyle(
-                                    color: const Color(0xff28B446),
+                                    color: greenColor,
                                     fontFamily: "Poppins",
                                     fontSize: 18.sp,
                                     fontWeight: FontWeight.w600),
@@ -159,30 +160,30 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w500),
                               ),
-                              const Icon(
+                               Icon(
                                 Icons.star_rate_rounded,
-                                color: Color(0xffFFC107),
+                                color: starColor,
                               ),
-                              const Icon(
+                               Icon(
                                 Icons.star_rate_rounded,
-                                color: Color(0xffFFC107),
+                                color: starColor,
                               ),
-                              const Icon(
+                               Icon(
                                 Icons.star_rate_rounded,
-                                color: Color(0xffFFC107),
+                                color: starColor,
                               ),
-                              const Icon(
+                               Icon(
                                 Icons.star_rate_rounded,
-                                color: Color(0xffFFC107),
+                                color: starColor,
                               ),
-                              const Icon(
+                               Icon(
                                 Icons.star_half_rounded,
-                                color: Color(0xffFFC107),
+                                color: starColor,
                               ),
-                              const Text(
+                               Text(
                                 "(89 reviews)",
                                 style: TextStyle(
-                                    color: Color(0xff868889),
+                                    color: grayColor,
                                     fontFamily: "Poppins",
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500),
@@ -193,7 +194,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                           Text(
                             snapshot.requireData.data()!['description'],
                             style: TextStyle(
-                                color: const Color(0xff868889),
+                                color: grayColor,
                                 fontFamily: "Poppins",
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w500,
@@ -212,7 +213,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                                 Text(
                                   "Quantity",
                                   style: TextStyle(
-                                      color: const Color(0xff868889),
+                                      color: grayColor,
                                       fontFamily: "Poppins",
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w500),
@@ -227,9 +228,9 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                                               {'quantity': itsQuan.value});
                                         }
                                       },
-                                      child: const Icon(
+                                      child:  Icon(
                                         Icons.remove,
-                                        color: Color(0xff6CC51D),
+                                        color: greenColor,
                                       ),
                                     ),
                                     ValueListenableBuilder(
@@ -259,9 +260,9 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                                         db.doc(widget.id).update(
                                             {'quantity': itsQuan.value});
                                       },
-                                      child: const Icon(
+                                      child: Icon(
                                         Icons.add,
-                                        color: Color(0xff6CC51D),
+                                        color: greenColor,
                                       ),
                                     )
                                   ],

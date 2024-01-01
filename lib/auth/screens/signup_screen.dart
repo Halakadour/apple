@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable, use_build_context_synchronously, avoid_print
 
+import 'package:apple/core/constants/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -111,7 +112,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Text(
                 "Quickly create account",
                 style: TextStyle(
-                    color: const Color(0xff868889),
+                    color: grayColor,
                     fontFamily: "Poppins",
                     fontSize: 15.sp,
                     fontWeight: FontWeight.w400,
@@ -172,7 +173,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Text(
                     "Don’t have an account ?",
                     style: TextStyle(
-                        color: const Color(0xff868889),
+                        color: grayColor,
                         fontFamily: "Poppins",
                         fontSize: 15.sp,
                         fontWeight: FontWeight.w300,

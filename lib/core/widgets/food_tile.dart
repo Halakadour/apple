@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class MyFoodTile extends StatefulWidget {
   MyFoodTile(
@@ -14,7 +13,8 @@ class MyFoodTile extends StatefulWidget {
       required this.price,
       required this.weight,
       required this.quantity,
-      required this.cart})
+      required this.cart,
+      required this.onPressed})
       : super(key: key);
   final String id;
   final String foodColor;
@@ -24,7 +24,7 @@ class MyFoodTile extends StatefulWidget {
   final String weight;
   int quantity;
   bool cart;
-
+  void Function(BuildContext)? onPressed;
   @override
   State<MyFoodTile> createState() => _MyFoodTileState();
 }
@@ -40,21 +40,13 @@ class _MyFoodTileState extends State<MyFoodTile> {
     super.initState();
   }
 
-  Future removeCartiteItem(String id) async {
-    await FirebaseFirestore.instance.collection('cart').doc(id).delete();
-    db.doc(widget.id).update({'quantity': 0});
-    db.doc(widget.id).update({'cart': false});
-  }
-
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      endActionPane: ActionPane(motion: StretchMotion(), children: [
+      endActionPane: ActionPane(motion: const StretchMotion(), children: [
         SlidableAction(
-          onPressed: (context) {
-            removeCartiteItem(widget.id);
-          },
-          backgroundColor: Color(0xffEF574B),
+          onPressed: widget.onPressed,
+          backgroundColor: const Color(0xffEF574B),
           icon: Icons.delete,
         )
       ]),
@@ -77,10 +69,10 @@ class _MyFoodTileState extends State<MyFoodTile> {
                     ).withOpacity(.2),
                   ),
                   child: FadeInImage.assetNetwork(
-                    placeholder: "assets/aocado.png",
+                    placeholder: "assets/healthy-food.png",
                     image: widget.imageUrl,
                     imageErrorBuilder: (context, error, stackTrace) =>
-                        Image.asset("assets/aocado.png"),
+                        Image.asset("assets/healthy-food.png"),
                     width: 70,
                   ),
                 ),
@@ -133,7 +125,7 @@ class _MyFoodTileState extends State<MyFoodTile> {
                       width: 60,
                       child: Center(
                           child: Text(
-                        "${value}",
+                        "$value",
                         style:
                             TextStyle(fontFamily: "Poppins", fontSize: 16.sp),
                       ))),

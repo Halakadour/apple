@@ -1,3 +1,4 @@
+import 'package:apple/core/constants/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,7 +43,7 @@ class _FoodWidgetState extends State<FoodWidget> {
   ValueNotifier<bool> isFav = ValueNotifier(false);
 
   ValueNotifier<bool> isClicked = ValueNotifier(false);
-  
+
   ValueNotifier<int> itsQuan = ValueNotifier(0);
   @override
   void initState() {
@@ -61,7 +62,15 @@ class _FoodWidgetState extends State<FoodWidget> {
   }
 
   Future removeCartiteItem(String id) async {
-    await FirebaseFirestore.instance.collection('cart').doc(id).delete();
+    await FirebaseFirestore.instance
+        .collection('cart')
+        .where('id', isEqualTo: id)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        doc.reference.delete();
+      });
+    });
     db.doc(widget.id).update({'quantity': 0});
     db.doc(widget.id).update({'cart': false});
   }
@@ -73,18 +82,17 @@ class _FoodWidgetState extends State<FoodWidget> {
   }
 
   Future removeFavoriteItem(String id) async {
-    DocumentSnapshot snapshot =
-        await FirebaseFirestore.instance.collection('favorite').doc(id).get();
-    if (snapshot.exists) {
-      // Document with the specified ID exists, so we can delete it
-      await FirebaseFirestore.instance.collection('favorite').doc(id).delete();
-      print('Document with ID $id deleted successfully');
-    } else {
-      // Document with the specified ID does not exist
-      print('Document with ID $id does not exist');
-    }
+    await FirebaseFirestore.instance
+        .collection('favorite')
+        .where('id', isEqualTo: id)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        doc.reference.delete();
+      });
+    });
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -139,10 +147,10 @@ class _FoodWidgetState extends State<FoodWidget> {
                         ).withOpacity(.2),
                       ),
                       child: FadeInImage.assetNetwork(
-                        placeholder: "assets/aocado.png",
+                        placeholder: "assets/healthy-food.png",
                         image: widget.imageUrl,
                         imageErrorBuilder: (context, error, stackTrace) =>
-                            Image.asset("assets/aocado.png"),
+                            Image.asset("assets/healthy-food.png"),
                         width: 100,
                       ),
                     ),
@@ -151,7 +159,7 @@ class _FoodWidgetState extends State<FoodWidget> {
                   Text(
                     "\$${widget.price.toStringAsFixed(2)}",
                     style: TextStyle(
-                        color: const Color(0xff6CC51D),
+                        color: greenColor,
                         fontFamily: "Poppins",
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500),
@@ -166,7 +174,7 @@ class _FoodWidgetState extends State<FoodWidget> {
                   Text(
                     widget.weight,
                     style: TextStyle(
-                        color: const Color(0xff868889),
+                        color: grayColor,
                         fontFamily: "Poppins",
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500),
@@ -204,9 +212,9 @@ class _FoodWidgetState extends State<FoodWidget> {
                                     .update({'quantity': itsQuan.value});
                               }
                             },
-                            child: const Icon(
+                            child: Icon(
                               Icons.remove,
-                              color: Color(0xff6CC51D),
+                              color: greenColor,
                             ),
                           ),
                           ValueListenableBuilder(
@@ -229,9 +237,9 @@ class _FoodWidgetState extends State<FoodWidget> {
                                   .doc(widget.id)
                                   .update({'quantity': itsQuan.value});
                             },
-                            child: const Icon(
+                            child:  Icon(
                               Icons.add,
-                              color: Color(0xff6CC51D),
+                              color: greenColor,
                             ),
                           )
                         ],
@@ -243,7 +251,7 @@ class _FoodWidgetState extends State<FoodWidget> {
                             "assets/bag.svg",
                             width: 20,
                             // ignore: deprecated_member_use
-                            color: const Color(0xff6CC51D),
+                            color: greenColor,
                           ),
                           8.horizontalSpace,
                           Text(

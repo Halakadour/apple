@@ -1,3 +1,4 @@
+import 'package:apple/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,9 +15,9 @@ class MyButton extends StatelessWidget {
         height: .07.sh,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(3),
-            gradient: const LinearGradient(colors: [
-              Color(0xffAEDC81),
-              Color(0xff6CC51D),
+            gradient:  LinearGradient(colors: [
+              lightGreen,
+              greenColor,
             ], begin: Alignment.bottomLeft, end: Alignment.topRight)),
         child: Center(
             child: Text(
