@@ -5,6 +5,7 @@ import 'package:apple/core/widgets/float_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -46,7 +47,15 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     80.verticalSpace,
-                    Image.asset("assets/homey.png"),
+                    Image.asset("assets/homey.png")
+                        .animate()
+                        .fadeIn(
+                          begin: .2,
+                        )
+                        .scale(
+                            begin: const Offset(.8, .8),
+                            end: const Offset(1, 1),
+                            delay: Durations.short2),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -82,9 +91,12 @@ class HomeScreen extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return TabBarItems(
-                              imagePath: myTabs[index][0],
-                              color: myTabs[index][1],
-                              foodType: myTabs[index][2]);
+                                  imagePath: myTabs[index][0],
+                                  color: myTabs[index][1],
+                                  foodType: myTabs[index][2])
+                              .animate()
+                              .scale(curve: Curves.bounceInOut)
+                              .slideX();
                         },
                       ),
                     ),
@@ -122,13 +134,66 @@ class HomeScreen extends StatelessWidget {
                       builder: (context, snapshot) => snapshot
                                   .connectionState ==
                               ConnectionState.waiting
-                          ? const Center(
-                              child: CircularProgressIndicator(),
-                            )
+                          ? GridView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: 10,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      childAspectRatio: .65,
+                                      crossAxisSpacing: 8),
+                              itemBuilder: (context, index) => ConstrainedBox(
+                                    constraints: const BoxConstraints(
+                                        minHeight: 100, minWidth: 100),
+                                    child: Animate(
+                                      effects: [
+                                        ShimmerEffect(
+                                            duration: Durations.extralong4,
+                                            color: Colors.grey.shade200,
+                                            angle: .7),
+                                        ShimmerEffect(
+                                            duration: Durations.extralong4,
+                                            delay: Durations.extralong4,
+                                            color: Colors.grey.shade200,
+                                            angle: .7),
+                                        ShimmerEffect(
+                                            duration: Durations.extralong4,
+                                            delay: Durations.extralong4 * 2,
+                                            color: Colors.grey.shade200,
+                                            angle: .7),
+                                        ShimmerEffect(
+                                            duration: Durations.extralong4,
+                                            delay: Durations.extralong4 * 3,
+                                            color: Colors.grey.shade200,
+                                            angle: .7),
+                                        ShimmerEffect(
+                                            duration: Durations.extralong4,
+                                            delay: Durations.extralong4 * 4,
+                                            color: Colors.grey.shade200,
+                                            angle: .7),
+                                        ShimmerEffect(
+                                            duration: Durations.extralong4,
+                                            delay: Durations.extralong4 * 5,
+                                            color: Colors.grey.shade200,
+                                            angle: .7),
+                                        ShimmerEffect(
+                                            duration: Durations.extralong4,
+                                            delay: Durations.extralong4 * 6,
+                                            color: Colors.grey.shade200,
+                                            angle: .7),
+                                      ],
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey.shade300,
+                                            borderRadius:
+                                                BorderRadius.circular(15)),
+                                      ),
+                                    ),
+                                  ))
                           : snapshot.connectionState == ConnectionState.done
                               ? snapshot.requireData.docs.isEmpty
                                   ? const Center(
-                                      child: Text("No Data"),
+                                      child: Text('There Is No Data'),
                                     )
                                   : GridView.builder(
                                       physics:
@@ -142,31 +207,37 @@ class HomeScreen extends StatelessWidget {
                                               crossAxisSpacing: 8),
                                       itemBuilder: (context, index) =>
                                           FoodWidget(
-                                            id: snapshot
-                                                .requireData.docs[index].id,
-                                            foodColor: snapshot.requireData
-                                                .docs[index]['color'],
-                                            description: snapshot.requireData
-                                                .docs[index]['description'],
-                                            foodName: snapshot.requireData
-                                                .docs[index]['name'],
-                                            imageUrl: snapshot.requireData
-                                                .docs[index]['image'],
-                                            itsType: snapshot.requireData
-                                                .docs[index]['type'],
-                                            price: snapshot.requireData
-                                                .docs[index]['price'],
-                                            rate: snapshot.requireData
-                                                .docs[index]['rate'],
-                                            weight: snapshot.requireData
-                                                .docs[index]['weight'],
-                                            quantity: snapshot.requireData
-                                                .docs[index]['quantity'],
-                                            favorite: snapshot.requireData
-                                                .docs[index]['favorite'],
-                                            cart: snapshot.requireData
-                                                .docs[index]['cart'],
-                                          ))
+                                        id: snapshot.requireData.docs[index].id,
+                                        foodColor: snapshot
+                                            .requireData.docs[index]['color'],
+                                        description: snapshot.requireData
+                                            .docs[index]['description'],
+                                        foodName: snapshot
+                                            .requireData.docs[index]['name'],
+                                        imageUrl: snapshot
+                                            .requireData.docs[index]['image'],
+                                        itsType: snapshot
+                                            .requireData.docs[index]['type'],
+                                        price: snapshot.requireData.docs[index]
+                                            ['price'],
+                                        rate: snapshot.requireData.docs[index]
+                                            ['rate'],
+                                        weight: snapshot.requireData.docs[index]
+                                            ['weight'],
+                                        quantity: snapshot.requireData
+                                            .docs[index]['quantity'],
+                                        favorite: snapshot.requireData
+                                            .docs[index]['favorite'],
+                                        cart: snapshot.requireData.docs[index]
+                                            ['cart'],
+                                      )
+                                              .animate(onComplete: (c) async {
+                                                c.stop();
+                                                await c.forward();
+                                              })
+                                              .slideX()
+                                              .fade(),
+                                    )
                               : const Center(child: Text("Failed")),
                     ))
                   ],
@@ -189,7 +260,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     hintText: "Search Keywords..",
                     hintStyle: TextStyle(
-                      color:const Color(0xFF757779),
+                      color: const Color(0xFF757779),
                       fontFamily: "Poppins",
                       fontSize: 13.sp,
                       fontWeight: FontWeight.w500,

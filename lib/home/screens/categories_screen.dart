@@ -1,5 +1,6 @@
 import 'package:apple/core/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -52,20 +53,22 @@ class Categories extends StatelessWidget {
           children: [
             10.verticalSpace,
             Expanded(
-                child: GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: itemList.length,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3, childAspectRatio: 1.1),
-                    itemBuilder: (context, index) => Container(
-                          margin: const EdgeInsets.all(4),
-                          padding: const EdgeInsets.all(20),
-                          color: Colors.white,
-                          child: TabBarItems(
-                              imagePath: itemList[index][0],
-                              color: itemList[index][1],
-                              foodType: itemList[index][2]),
-                        ))),
+              child: GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: itemList.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3, childAspectRatio: 1.1),
+                itemBuilder: (context, index) => Container(
+                  margin: const EdgeInsets.all(4),
+                  padding: const EdgeInsets.all(20),
+                  color: Colors.white,
+                  child: TabBarItems(
+                      imagePath: itemList[index][0],
+                      color: itemList[index][1],
+                      foodType: itemList[index][2]),
+                ).animate().scale(),
+              ),
+            ),
           ],
         ),
       ),

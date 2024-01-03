@@ -3,6 +3,7 @@ import 'package:apple/core/widgets/food_tile.dart';
 import 'package:apple/home/screens/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -63,7 +64,7 @@ class CartScreen extends StatelessWidget {
                                       // ignore: deprecated_member_use
                                       color: greenColor,
                                       width: .25.sw,
-                                    ),
+                                    ).animate().shake(),
                                     40.verticalSpace,
                                     Text(
                                       "Your cart is empty !",
@@ -73,7 +74,7 @@ class CartScreen extends StatelessWidget {
                                         fontWeight: FontWeight.w600,
                                       ),
                                       textAlign: TextAlign.center,
-                                    ),
+                                    ).animate().fade(),
                                     20.verticalSpace,
                                     Text(
                                       "You will get a response within\na few minutes.",
@@ -84,7 +85,7 @@ class CartScreen extends StatelessWidget {
                                           fontWeight: FontWeight.w500,
                                           letterSpacing: .45.sp),
                                       textAlign: TextAlign.center,
-                                    ),
+                                    ).animate().fade(),
                                   ],
                                 ),
                                 MyButton(
@@ -95,7 +96,7 @@ class CartScreen extends StatelessWidget {
                                           MaterialPageRoute(
                                             builder: (context) => HomeScreen(),
                                           ));
-                                    })
+                                    }).animate().scale()
                               ]),
                         )
                       : Stack(children: [
@@ -159,7 +160,7 @@ class CartScreen extends StatelessWidget {
                                               .doc(snapshot.requireData.id)
                                               .update({'cart': false});
                                         },
-                                      );
+                                      ).animate().flip();
                                     }
                                   }),
                             )),
@@ -207,9 +208,11 @@ class CartScreen extends StatelessWidget {
                                         );
                                       })
                                     ],
-                                  ),
+                                  ).animate().fade(),
                                   20.verticalSpace,
                                   MyButton(name: "Checkout", onTap: () {})
+                                      .animate()
+                                      .scale()
                                 ]),
                               ),
                             ),

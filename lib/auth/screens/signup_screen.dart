@@ -99,106 +99,109 @@ class _SignUpScreenState extends State<SignUpScreen> {
               color: Color(0xffF4F5F9),
               borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
             ),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                "Create account",
-                style: TextStyle(
-                    fontFamily: "Poppins",
-                    fontSize: 25.sp,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: .75),
-              ),
-              Text(
-                "Quickly create account",
-                style: TextStyle(
-                    color: grayColor,
-                    fontFamily: "Poppins",
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w400,
-                    letterSpacing: .45),
-              ),
-              Form(
-                key: formkey,
-                child: SizedBox(
-                  height: .03.sh,
-                ),
-              ),
-              MyTextField(
-                  controller: nameController,
-                  validator: (name) {
-                    if (!(name != null && name.length >= 3)) {
-                      return 'Enter your Name';
-                    }
-                    return null;
-                  },
-                  iconPath: "assets/user.svg",
-                  hint: "Full Name"),
-              MyTextField(
-                  controller: emailController,
-                  validator: (email) {
-                    if (email != null &&
-                        RegExp(
-                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
-                          caseSensitive: false,
-                        ).hasMatch(email)) {
-                      return null;
-                    } else {
-                      return "Add  valid email ";
-                    }
-                  },
-                  iconPath: "assets/message.svg",
-                  hint: "Email Address"),
-              MyTextField(
-                  controller: passwordController,
-                  validator: (password) {
-                    if (password!.isEmpty) {
-                      return "Enter a vaild password";
-                    }
-                    return null;
-                  },
-                  iconPath: "assets/locked.svg",
-                  hint: "password"),
-              SizedBox(
-                height: .02.sh,
-              ),
-              MyButton(
-                  name: isLoading ? "Loading" : "Signup",
-                  onTap: () async {
-                    signUp();
-                  }),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Don’t have an account ?",
-                    style: TextStyle(
-                        color: grayColor,
-                        fontFamily: "Poppins",
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w300,
-                        letterSpacing: .45),
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginScreen(),
-                            ));
-                      },
-                      child: Text(
-                        "Login",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: "Poppins",
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: .45),
-                      ))
-                ],
-              )
-            ]),
+            child: SingleChildScrollView(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Create account",
+                      style: TextStyle(
+                          fontFamily: "Poppins",
+                          fontSize: 25.sp,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: .75),
+                    ),
+                    Text(
+                      "Quickly create account",
+                      style: TextStyle(
+                          color: grayColor,
+                          fontFamily: "Poppins",
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w400,
+                          letterSpacing: .45),
+                    ),
+                    Form(
+                      key: formkey,
+                      child: SizedBox(
+                        height: .03.sh,
+                      ),
+                    ),
+                    MyTextField(
+                        controller: nameController,
+                        validator: (name) {
+                          if (!(name != null && name.length >= 3)) {
+                            return 'Enter your Name';
+                          }
+                          return null;
+                        },
+                        iconPath: "assets/user.svg",
+                        hint: "Full Name"),
+                    MyTextField(
+                        controller: emailController,
+                        validator: (email) {
+                          if (email != null &&
+                              RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+                                caseSensitive: false,
+                              ).hasMatch(email)) {
+                            return null;
+                          } else {
+                            return "Add  valid email ";
+                          }
+                        },
+                        iconPath: "assets/message.svg",
+                        hint: "Email Address"),
+                    MyTextField(
+                        controller: passwordController,
+                        validator: (password) {
+                          if (password!.isEmpty) {
+                            return "Enter a vaild password";
+                          }
+                          return null;
+                        },
+                        iconPath: "assets/locked.svg",
+                        hint: "password"),
+                    SizedBox(
+                      height: .02.sh,
+                    ),
+                    MyButton(
+                        name: isLoading ? "Loading" : "Signup",
+                        onTap: () async {
+                          signUp();
+                        }),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Don’t have an account ?",
+                          style: TextStyle(
+                              color: grayColor,
+                              fontFamily: "Poppins",
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w300,
+                              letterSpacing: .45),
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const LoginScreen(),
+                                  ));
+                            },
+                            child: Text(
+                              "Login",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: "Poppins",
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: .45),
+                            ))
+                      ],
+                    )
+                  ]),
+            ),
           ),
         )
       ],

@@ -3,6 +3,7 @@
 import 'package:apple/core/constants/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -67,38 +68,38 @@ class GroceryScreen extends StatelessWidget {
                           ? const Center(
                               child: Text("No Data"),
                             )
-                          : GridView.builder(
-                              itemCount: snapshot.requireData.docs.length,
+                          : AnimatedGrid(
+                              initialItemCount:
+                                  snapshot.requireData.docs.length,
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
                                       childAspectRatio: .7,
                                       crossAxisSpacing: 8),
-                              itemBuilder: (context, index) => FoodWidget(
-                                    id: snapshot.requireData.docs[index].id,
-                                    foodColor: snapshot.requireData.docs[index]
-                                        ['color'],
-                                    description: snapshot
-                                        .requireData.docs[index]['description'],
-                                    foodName: snapshot.requireData.docs[index]
-                                        ['name'],
-                                    imageUrl: snapshot.requireData.docs[index]
-                                        ['image'],
-                                    itsType: snapshot.requireData.docs[index]
-                                        ['type'],
-                                    price: snapshot.requireData.docs[index]
-                                        ['price'],
-                                    rate: snapshot.requireData.docs[index]
-                                        ['rate'],
-                                    weight: snapshot.requireData.docs[index]
-                                        ['weight'],
-                                    quantity: snapshot.requireData.docs[index]
-                                        ['quantity'],
-                                    favorite: snapshot.requireData.docs[index]
-                                        ['favorite'],
-                                    cart: snapshot.requireData.docs[index]
-                                        ['cart'],
-                                  ))
+                              itemBuilder: (context, index, _) => FoodWidget(
+                                id: snapshot.requireData.docs[index].id,
+                                foodColor: snapshot.requireData.docs[index]
+                                    ['color'],
+                                description: snapshot.requireData.docs[index]
+                                    ['description'],
+                                foodName: snapshot.requireData.docs[index]
+                                    ['name'],
+                                imageUrl: snapshot.requireData.docs[index]
+                                    ['image'],
+                                itsType: snapshot.requireData.docs[index]
+                                    ['type'],
+                                price: snapshot.requireData.docs[index]
+                                    ['price'],
+                                rate: snapshot.requireData.docs[index]['rate'],
+                                weight: snapshot.requireData.docs[index]
+                                    ['weight'],
+                                quantity: snapshot.requireData.docs[index]
+                                    ['quantity'],
+                                favorite: snapshot.requireData.docs[index]
+                                    ['favorite'],
+                                cart: snapshot.requireData.docs[index]['cart'],
+                              ).animate().flip(),
+                            )
                       : const Center(child: Text("Failed")),
             ))
           ],
