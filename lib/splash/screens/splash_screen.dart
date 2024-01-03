@@ -17,9 +17,10 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void didChangeDependencies() {
-    Future.delayed(const Duration(seconds: 4), () async {
+    Future.delayed(const Duration(seconds: 2), () async {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final isFirst = prefs.getBool('firstTime');
+      await prefs.clear();
       if (isFirst != null) {
         Navigator.pushReplacement(
           context,

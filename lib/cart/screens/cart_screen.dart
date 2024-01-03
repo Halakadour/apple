@@ -147,9 +147,10 @@ class CartScreen extends StatelessWidget {
                                               .get()
                                               .then((QuerySnapshot
                                                   querySnapshot) {
-                                            querySnapshot.docs.forEach((doc) {
+                                            for (var doc
+                                                in querySnapshot.docs) {
                                               doc.reference.delete();
-                                            });
+                                            }
                                           });
                                           db
                                               .doc(snapshot.requireData.id)
@@ -195,14 +196,16 @@ class CartScreen extends StatelessWidget {
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
-                                      Text(
-                                        "\$$total",
-                                        style: TextStyle(
-                                          fontFamily: "Poppins",
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      )
+                                      Builder(builder: (context) {
+                                        return Text(
+                                          "\$$total",
+                                          style: TextStyle(
+                                            fontFamily: "Poppins",
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        );
+                                      })
                                     ],
                                   ),
                                   20.verticalSpace,

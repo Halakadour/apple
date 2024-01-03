@@ -22,7 +22,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: index.value);
+    _pageController = PageController(initialPage: 0);
   }
 
   @override
@@ -117,9 +117,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     height: .02.sh,
                     width: .02.sw,
                     decoration: BoxDecoration(
-                        color: value == 1
-                            ? greenColor
-                            : const Color(0xffDCDCDC),
+                        color:
+                            value == 1 ? greenColor : const Color(0xffDCDCDC),
                         shape: BoxShape.circle),
                   ),
                 ),
@@ -132,9 +131,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     height: .02.sh,
                     width: .02.sw,
                     decoration: BoxDecoration(
-                        color: value == 2
-                            ? greenColor
-                            : const Color(0xffDCDCDC),
+                        color:
+                            value == 2 ? greenColor : const Color(0xffDCDCDC),
                         shape: BoxShape.circle),
                   ),
                 ),
@@ -147,24 +145,25 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     height: .02.sh,
                     width: .02.sw,
                     decoration: BoxDecoration(
-                        color: value == 3
-                            ? greenColor
-                            : const Color(0xffDCDCDC),
+                        color:
+                            value == 3 ? greenColor : const Color(0xffDCDCDC),
                         shape: BoxShape.circle),
                   ),
                 ),
               ]),
               TextButton(
                   onPressed: () async {
+                    (await SharedPreferences.getInstance()).clear();
                     if (index.value < 3) {
-                      index.value++;
                       _pageController.animateToPage(
                         index.value,
                         duration: const Duration(milliseconds: 700),
                         curve: Curves.ease,
                       );
+                      index.value++;
                     } else {
-                      final SharedPreferences prefs = await SharedPreferences.getInstance();
+                      final SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
                       await prefs.setBool('firstTime', true);
                       Navigator.pushReplacement(
                           context,
@@ -177,7 +176,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     valueListenable: index,
                     builder: (context, value, child) => Text(
                       value == 3 ? "Start" : "Next",
-                      style:  TextStyle(
+                      style: TextStyle(
                         color: greenColor,
                         fontFamily: "Poppins",
                         fontSize: 15.sp,
