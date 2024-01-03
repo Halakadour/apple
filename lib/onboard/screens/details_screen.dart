@@ -2,6 +2,7 @@
 
 import 'package:apple/core/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,7 +23,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: index.value);
+    _pageController = PageController(initialPage: 0);
   }
 
   @override
@@ -50,7 +51,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       SvgPicture.asset(
                         "assets/$value.svg",
                         height: .5.sh,
-                      ),
+                      ).animate().slideX(),
                       SizedBox(
                         height: .1.sh,
                       ),
@@ -66,7 +67,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             fontWeight: FontWeight.w700,
                             letterSpacing: .75),
                         textAlign: TextAlign.center,
-                      ),
+                      ).animate().fade(),
                       SizedBox(
                         height: .02.sh,
                       ),
@@ -79,7 +80,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             fontSize: 15.sp,
                             fontWeight: FontWeight.w500,
                             letterSpacing: .45),
-                      ),
+                      ).animate().fade(),
                       SizedBox(
                         height: .06.sh,
                       ),
@@ -117,9 +118,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     height: .02.sh,
                     width: .02.sw,
                     decoration: BoxDecoration(
-                        color: value == 1
-                            ? greenColor
-                            : const Color(0xffDCDCDC),
+                        color:
+                            value == 1 ? greenColor : const Color(0xffDCDCDC),
                         shape: BoxShape.circle),
                   ),
                 ),
@@ -132,9 +132,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     height: .02.sh,
                     width: .02.sw,
                     decoration: BoxDecoration(
-                        color: value == 2
-                            ? greenColor
-                            : const Color(0xffDCDCDC),
+                        color:
+                            value == 2 ? greenColor : const Color(0xffDCDCDC),
                         shape: BoxShape.circle),
                   ),
                 ),
@@ -147,24 +146,25 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     height: .02.sh,
                     width: .02.sw,
                     decoration: BoxDecoration(
-                        color: value == 3
-                            ? greenColor
-                            : const Color(0xffDCDCDC),
+                        color:
+                            value == 3 ? greenColor : const Color(0xffDCDCDC),
                         shape: BoxShape.circle),
                   ),
                 ),
               ]),
               TextButton(
                   onPressed: () async {
+                    (await SharedPreferences.getInstance()).clear();
                     if (index.value < 3) {
-                      index.value++;
                       _pageController.animateToPage(
                         index.value,
                         duration: const Duration(milliseconds: 700),
                         curve: Curves.ease,
                       );
+                      index.value++;
                     } else {
-                      final SharedPreferences prefs = await SharedPreferences.getInstance();
+                      final SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
                       await prefs.setBool('firstTime', true);
                       Navigator.pushReplacement(
                           context,
@@ -177,7 +177,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     valueListenable: index,
                     builder: (context, value, child) => Text(
                       value == 3 ? "Start" : "Next",
-                      style:  TextStyle(
+                      style: TextStyle(
                         color: greenColor,
                         fontFamily: "Poppins",
                         fontSize: 15.sp,

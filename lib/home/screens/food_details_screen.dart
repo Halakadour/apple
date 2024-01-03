@@ -1,6 +1,7 @@
 import 'package:apple/core/constants/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -79,7 +80,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                             imageErrorBuilder: (context, error, stackTrace) =>
                                 Image.asset("assets/aocado.png"),
                             width: 270,
-                          ),
+                          ).animate().shake(),
                         ),
                         Positioned(
                           top: 30,
@@ -100,10 +101,10 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                     height: .6.sh,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 26),
-                    decoration:  BoxDecoration(
+                    decoration: BoxDecoration(
                         color: lightGray,
-                        borderRadius:
-                           const BorderRadius.vertical(top: Radius.circular(10))),
+                        borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(10))),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -117,7 +118,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                                     fontFamily: "Poppins",
                                     fontSize: 18.sp,
                                     fontWeight: FontWeight.w600),
-                              ),
+                              ).animate().fade(),
                               GestureDetector(
                                 onTap: () {
                                   isFav.value = !isFav.value;
@@ -132,7 +133,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                                           ? "assets/heartFill.svg"
                                           : "assets/heart.svg"),
                                 ),
-                              ),
+                              ).animate().shake(),
                             ],
                           ),
                           Text(
@@ -141,7 +142,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                                 fontFamily: "Poppins",
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w600),
-                          ),
+                          ).animate().fade(),
                           Text(
                             snapshot.requireData.data()!['weight'],
                             style: TextStyle(
@@ -149,7 +150,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                                 fontFamily: "Poppins",
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w500),
-                          ),
+                          ).animate().fade(),
                           10.verticalSpace,
                           Row(
                             children: [
@@ -159,35 +160,35 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                                     fontFamily: "Poppins",
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w500),
-                              ),
-                               Icon(
+                              ).animate().fade().slideX(),
+                              Icon(
                                 Icons.star_rate_rounded,
                                 color: starColor,
-                              ),
-                               Icon(
+                              ).animate().slideX().fade(),
+                              Icon(
                                 Icons.star_rate_rounded,
                                 color: starColor,
-                              ),
-                               Icon(
+                              ).animate().slideX().fade(),
+                              Icon(
                                 Icons.star_rate_rounded,
                                 color: starColor,
-                              ),
-                               Icon(
+                              ).animate().slideX().fade(),
+                              Icon(
                                 Icons.star_rate_rounded,
                                 color: starColor,
-                              ),
-                               Icon(
+                              ).animate().slideX().fade(),
+                              Icon(
                                 Icons.star_half_rounded,
                                 color: starColor,
-                              ),
-                               Text(
+                              ).animate().slideX().fade(),
+                              Text(
                                 "(89 reviews)",
                                 style: TextStyle(
                                     color: grayColor,
                                     fontFamily: "Poppins",
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500),
-                              ),
+                              ).animate().fade().slideX(),
                             ],
                           ),
                           20.verticalSpace,
@@ -199,7 +200,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w500,
                                 height: 2),
-                          ),
+                          ).animate().slideY(begin: 2, end: 0),
                           15.verticalSpace,
                           Container(
                             height: 50,
@@ -228,7 +229,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                                               {'quantity': itsQuan.value});
                                         }
                                       },
-                                      child:  Icon(
+                                      child: Icon(
                                         Icons.remove,
                                         color: greenColor,
                                       ),
@@ -268,13 +269,13 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                                   ],
                                 )
                               ],
-                            ),
+                            ).animate().slideY(begin: 2, end: 0),
                           ),
                           20.verticalSpace,
                           MyButton(
                             name: "Add to cart",
                             onTap: () {},
-                          ),
+                          ).animate().scale(),
                         ]),
                   )
                 ]),

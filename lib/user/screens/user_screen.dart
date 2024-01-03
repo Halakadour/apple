@@ -1,6 +1,7 @@
 import 'package:apple/core/widgets/float_button.dart';
 import 'package:apple/user/widgets/my_list_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/widgets/bottom_app_bar.dart';
@@ -31,7 +32,7 @@ class UserScreen extends StatelessWidget {
                     child: Image.asset(
                       "assets/portfolio.png",
                       fit: BoxFit.contain,
-                    )),
+                    )).animate().scale(),
                 20.horizontalSpace,
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -45,7 +46,7 @@ class UserScreen extends StatelessWidget {
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w600,
                           letterSpacing: -0.5),
-                    ),
+                    ).animate().fade(),
                     Text(
                       "oliviaaustin@gmail.com",
                       style: TextStyle(
@@ -54,7 +55,7 @@ class UserScreen extends StatelessWidget {
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w400,
                           letterSpacing: -0.5),
-                    )
+                    ).animate().fade()
                   ],
                 )
               ],
@@ -62,33 +63,37 @@ class UserScreen extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           height: .65.sh,
-          child: const Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            MyListTile(imagePath: "assets/person.svg", title: "About me"),
-            MyListTile(
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            const MyListTile(imagePath: "assets/person.svg", title: "About me")
+                .animate()
+                .slideX(),
+            const MyListTile(
               imagePath: "assets/box.svg",
               title: "My Orders",
-            ),
-            MyListTile(
+            ).animate().slideX(),
+            const MyListTile(
               imagePath: "assets/favorite.svg",
               title: "My Favorites",
-            ),
-            MyListTile(
+            ).animate().slideX(),
+            const MyListTile(
               imagePath: "assets/location.svg",
               title: "My Address",
-            ),
-            MyListTile(
+            ).animate().slideX(),
+            const MyListTile(
               imagePath: "assets/card.svg",
               title: "Credit Cards",
-            ),
-            MyListTile(
+            ).animate().slideX(),
+            const MyListTile(
               imagePath: "assets/dollar.svg",
               title: "Transactions",
-            ),
-            MyListTile(
+            ).animate().slideX(),
+            const MyListTile(
               imagePath: "assets/bill.svg",
               title: "Notifications",
-            ),
-            MyListTile(imagePath: "assets/arrow.svg", title: "Sign out")
+            ).animate().slideX(),
+            const MyListTile(imagePath: "assets/arrow.svg", title: "Sign out")
+                .animate()
+                .slideX()
           ]),
         )
       ]),
