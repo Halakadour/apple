@@ -9,6 +9,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../core/constants/durations.dart';
 import '../../core/widgets/bottom_app_bar.dart';
 import '../widgets/food_widget.dart';
 import '../widgets/tab_bar.dart';

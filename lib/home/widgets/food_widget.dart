@@ -57,7 +57,9 @@ class _FoodWidgetState extends State<FoodWidget> {
 
   Future addCartList(String id) async {
     await FirebaseFirestore.instance.collection('cart').add({
-      'id': id,
+      'id': widget.id,
+      'quantity' : widget.quantity,
+      'price' : widget.price,
     });
   }
 

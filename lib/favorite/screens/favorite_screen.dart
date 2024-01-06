@@ -66,7 +66,7 @@ class FavoriteScreen extends StatelessWidget {
                                     // ignore: deprecated_member_use
                                     color: greenColor,
                                     width: .25.sw,
-                                  ),
+                                  ).animate().shake(),
                                   40.verticalSpace,
                                   Text(
                                     "Your favorite is empty !",
@@ -76,7 +76,7 @@ class FavoriteScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w600,
                                     ),
                                     textAlign: TextAlign.center,
-                                  ),
+                                  ).animate().fade(),
                                   20.verticalSpace,
                                   Text(
                                     "You will get a response within\na few minutes.",
@@ -87,7 +87,7 @@ class FavoriteScreen extends StatelessWidget {
                                         fontWeight: FontWeight.w500,
                                         letterSpacing: .45.sp),
                                     textAlign: TextAlign.center,
-                                  ),
+                                  ).animate().fade(),
                                 ],
                               ),
                               MyButton(
@@ -98,7 +98,7 @@ class FavoriteScreen extends StatelessWidget {
                                         MaterialPageRoute(
                                           builder: (context) => HomeScreen(),
                                         ));
-                                  })
+                                  }).animate().scale(),
                             ])
                       : SizedBox(
                           height: 1.sh,
