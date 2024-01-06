@@ -37,7 +37,7 @@ class TabBarItems extends StatelessWidget {
             style: TextStyle(
                 color: grayColor,
                 fontFamily: "Poppins",
-                fontSize: 10,
+                fontSize: 10.sp,
                 fontWeight: FontWeight.w500),
           )
         ],

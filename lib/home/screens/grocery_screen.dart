@@ -18,7 +18,7 @@ class GroceryScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: lightGray,
       appBar: AppBar(
-        toolbarHeight: 70,
+        toolbarHeight: .08.sh,
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.white,

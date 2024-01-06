@@ -62,7 +62,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                     child: Stack(
                       children: [
                         Container(
-                          height: 270,
+                          height: .3.sh,
                           decoration: BoxDecoration(
                               color: Color(
                                 int.parse(
@@ -72,14 +72,14 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                                   bottom: Radius.circular(490))),
                         ),
                         Positioned(
-                          left: 70,
-                          top: 60,
+                          left: .17.sw,
+                          top: .07.sh,
                           child: FadeInImage.assetNetwork(
                             placeholder: "assets/aocado.png",
                             image: snapshot.requireData.data()!['image'],
                             imageErrorBuilder: (context, error, stackTrace) =>
                                 Image.asset("assets/aocado.png"),
-                            width: 270,
+                            width: .6.sw,
                           ).animate().shake(),
                         ),
                         Positioned(
@@ -203,7 +203,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                           ).animate().slideY(begin: 2, end: 0),
                           15.verticalSpace,
                           Container(
-                            height: 50,
+                            height: .056.sh,
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
                                 color: Colors.white,
@@ -238,7 +238,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                                       valueListenable: itsQuan,
                                       builder: (context, value, child) =>
                                           Container(
-                                        width: 60,
+                                        width: .14.sw,
                                         margin: const EdgeInsets.symmetric(
                                             horizontal: 5),
                                         decoration: const BoxDecoration(

@@ -101,12 +101,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         builder: (context) => const SignUpScreen(),
                       ));
                 },
-                child: const Text(
+                child:  Text(
                   "Skip",
                   style: TextStyle(
-                    color: Color(0xffC4C4C4),
+                    color:const Color(0xffC4C4C4),
                     fontFamily: "Poppins",
-                    fontSize: 15,
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.w500,
                   ),
                 ),

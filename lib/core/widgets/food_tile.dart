@@ -60,8 +60,8 @@ class _MyFoodTileState extends State<MyFoodTile> {
             Row(
               children: [
                 Container(
-                  width: 60,
-                  height: 60,
+                  width: .145.sw,
+                  height: .067.sh,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Color(
@@ -73,7 +73,7 @@ class _MyFoodTileState extends State<MyFoodTile> {
                     image: widget.imageUrl,
                     imageErrorBuilder: (context, error, stackTrace) =>
                         Image.asset("assets/healthy-food.png"),
-                    width: 70,
+                    width: .17.sw,
                   ),
                 ),
                 10.horizontalSpace,

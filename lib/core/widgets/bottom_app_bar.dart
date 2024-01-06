@@ -2,6 +2,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../favorite/screens/favorite_screen.dart';
@@ -56,28 +57,28 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 "assets/home.svg",
-                width: 20,
+                width: .05.sw,
                 color: widget.pageIndex == 0 ? Colors.black : null,
               ),
               label: ""),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 "assets/user.svg",
-                width: 20,
+                width: .05.sw,
                 color: widget.pageIndex == 1 ? Colors.black : null,
               ),
               label: ""),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 "assets/favorite.svg",
-                width: 20,
+                width: .05.sw,
                 color: widget.pageIndex == 2 ? Colors.black : null,
               ),
               label: ""),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 "",
-                width: 20,
+                width: .05.sw,
               ),
               label: ""),
         ]);

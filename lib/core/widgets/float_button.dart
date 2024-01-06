@@ -1,6 +1,7 @@
 import 'package:apple/cart/screens/cart_screen.dart';
 import 'package:apple/core/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MyFloatButton extends StatelessWidget {
@@ -19,7 +20,7 @@ class MyFloatButton extends StatelessWidget {
       backgroundColor: greenColor,
       child: SvgPicture.asset(
         "assets/bag.svg",
-        width: 20,
+        width: .05.sw,
       ),
     );
   }

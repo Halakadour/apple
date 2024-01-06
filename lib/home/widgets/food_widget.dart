@@ -140,8 +140,8 @@ class _FoodWidgetState extends State<FoodWidget> {
                           ),
                         )),
                     child: Container(
-                      width: 110,
-                      height: 110,
+                      width: .266.sw,
+                      height: .128.sh,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Color(
@@ -153,7 +153,7 @@ class _FoodWidgetState extends State<FoodWidget> {
                         image: widget.imageUrl,
                         imageErrorBuilder: (context, error, stackTrace) =>
                             Image.asset("assets/healthy-food.png"),
-                        width: 100,
+                        width: .24.sw,
                       ),
                     ),
                   ),
@@ -222,7 +222,7 @@ class _FoodWidgetState extends State<FoodWidget> {
                           ValueListenableBuilder(
                             valueListenable: itsQuan,
                             builder: (context, value, child) => SizedBox(
-                              width: 60,
+                              width: .145.sw,
                               child: Center(
                                   child: Text(
                                 "${itsQuan.value}",
@@ -251,7 +251,7 @@ class _FoodWidgetState extends State<FoodWidget> {
                         children: [
                           SvgPicture.asset(
                             "assets/bag.svg",
-                            width: 20,
+                            width: .05.sw,
                             // ignore: deprecated_member_use
                             color: greenColor,
                           ),

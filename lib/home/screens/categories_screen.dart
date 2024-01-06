@@ -14,7 +14,7 @@ class Categories extends StatelessWidget {
     return Scaffold(
       backgroundColor: lightGray,
       appBar: AppBar(
-        toolbarHeight: 70,
+        toolbarHeight: .08.sh,
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.white,
@@ -40,7 +40,7 @@ class Categories extends StatelessWidget {
             onPressed: () {},
             icon: SvgPicture.asset(
               "assets/filter.svg",
-              width: 20,
+              width: .05.sw,
               // ignore: deprecated_member_use
               color: Colors.black,
             ),
