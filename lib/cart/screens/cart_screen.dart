@@ -104,66 +104,71 @@ class CartScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(20),
                             child: Expanded(
                                 child: ListView.builder(
-                              itemCount: snapshot.data?.size,
-                              itemBuilder: (context, index) => FutureBuilder(
-                                  future: db
-                                      .collection('fruits')
-                                      .doc(snapshot.requireData.docs[index]
-                                          ['id'])
-                                      .get(),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return const Center(
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    } else {
+                                    itemCount: snapshot.data?.size,
+                                    itemBuilder: (context, index) {
                                       total = total +
-                                          snapshot.requireData
-                                                  .data()!['price'] *
-                                              snapshot.requireData
-                                                  .data()!['quantity'];
-                                      return MyFoodTile(
-                                        id: snapshot.requireData.id,
-                                        foodColor: snapshot.requireData
-                                            .data()!['color'],
-                                        imageUrl: snapshot.requireData
-                                            .data()!['image'],
-                                        foodName: snapshot.requireData
-                                            .data()!['name'],
-                                        price: snapshot.requireData
-                                            .data()!['price'],
-                                        weight: snapshot.requireData
-                                            .data()!['weight'],
-                                        quantity: snapshot.requireData
-                                            .data()!['quantity'],
-                                        cart: snapshot.requireData
-                                            .data()!['cart'],
-                                        onPressed: (context) async {
-                                          await FirebaseFirestore.instance
-                                              .collection('cart')
-                                              .where('id',
-                                                  isEqualTo:
-                                                      snapshot.requireData.id)
-                                              .get()
-                                              .then((QuerySnapshot
-                                                  querySnapshot) {
-                                            for (var doc
-                                                in querySnapshot.docs) {
-                                              doc.reference.delete();
+                                          snapshot.requireData.docs[index]
+                                                  ['price'] *
+                                              snapshot.requireData.docs[index]
+                                                  ['quantity'];
+                                      return FutureBuilder(
+                                          future: db
+                                              .collection('fruits')
+                                              .doc(snapshot.requireData
+                                                  .docs[index]['id'])
+                                              .get(),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return const Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              );
+                                            } else {
+                                              return MyFoodTile(
+                                                id: snapshot.requireData.id,
+                                                foodColor: snapshot.requireData
+                                                    .data()!['color'],
+                                                imageUrl: snapshot.requireData
+                                                    .data()!['image'],
+                                                foodName: snapshot.requireData
+                                                    .data()!['name'],
+                                                price: snapshot.requireData
+                                                    .data()!['price'],
+                                                weight: snapshot.requireData
+                                                    .data()!['weight'],
+                                                quantity: snapshot.requireData
+                                                    .data()!['quantity'],
+                                                cart: snapshot.requireData
+                                                    .data()!['cart'],
+                                                onPressed: (context) async {
+                                                  await FirebaseFirestore
+                                                      .instance
+                                                      .collection('cart')
+                                                      .where('id',
+                                                          isEqualTo: snapshot
+                                                              .requireData.id)
+                                                      .get()
+                                                      .then((QuerySnapshot
+                                                          querySnapshot) {
+                                                    for (var doc
+                                                        in querySnapshot.docs) {
+                                                      doc.reference.delete();
+                                                    }
+                                                  });
+                                                  db
+                                                      .doc(snapshot
+                                                          .requireData.id)
+                                                      .update({'quantity': 0});
+                                                  db
+                                                      .doc(snapshot
+                                                          .requireData.id)
+                                                      .update({'cart': false});
+                                                },
+                                              ).animate().flip();
                                             }
                                           });
-                                          db
-                                              .doc(snapshot.requireData.id)
-                                              .update({'quantity': 0});
-                                          db
-                                              .doc(snapshot.requireData.id)
-                                              .update({'cart': false});
-                                        },
-                                      ).animate().flip();
-                                    }
-                                  }),
-                            )),
+                                    })),
                           ),
                           Align(
                             alignment: Alignment.bottomCenter,
