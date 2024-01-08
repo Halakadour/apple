@@ -1,15 +1,12 @@
 // ignore_for_file: deprecated_member_use
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../favorite/screens/favorite_screen.dart';
-import '../../home/screens/home_screen.dart';
-import '../../user/screens/user_screen.dart';
-
-
+import '../../features/favorite/screens/favorite_screen.dart';
+import '../../features/home/screens/home_screen.dart';
+import '../../features/user/screens/user_screen.dart';
 
 // ignore: must_be_immutable
 class CustomBottomAppBar extends StatefulWidget {
@@ -48,7 +45,7 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>  FavoriteScreen(),
+                    builder: (context) => FavoriteScreen(),
                   ));
               break;
           }
@@ -77,7 +74,7 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
               label: ""),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                "",
+                "assets/favorite.svg",
                 width: .05.sw,
               ),
               label: ""),

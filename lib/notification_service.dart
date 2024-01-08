@@ -1,18 +1,18 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-
 class NotificationService {
   NotificationService._();
 
-  static final _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  static final _flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   static const _channel = AndroidNotificationChannel(
     'high_importance_channel', // id
     'High Importance Notifications', // title
-    description: 'This channel is used for important notifications.', // description
+    description:
+        'This channel is used for important notifications.', // description
     importance: Importance.high,
     playSound: true,
   );
@@ -20,7 +20,6 @@ class NotificationService {
   static Future<void> init() async {
     await Firebase.initializeApp();
     await FirebaseMessaging.instance.subscribeToTopic('all');
-    print((await FirebaseMessaging.instance.getToken()).toString());
   }
 
   static void listen() {
@@ -53,7 +52,8 @@ class NotificationService {
 
   static void requestPermission() {
     _flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()!
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()!
         .requestNotificationsPermission();
   }
-}  
+}

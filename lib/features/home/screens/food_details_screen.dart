@@ -5,7 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../core/widgets/custom_button.dart';
+import '../../../core/widgets/custom_button.dart';
 
 // ignore: must_be_immutable
 class FoodDetailsScreen extends StatefulWidget {
@@ -225,8 +225,11 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                                       onTap: () {
                                         if (itsQuan.value > 0) {
                                           itsQuan.value--;
-                                          db.doc(widget.id).update(
-                                              {'quantity': itsQuan.value});
+                                          db
+                                              .collection('fruits')
+                                              .doc(widget.id)
+                                              .update(
+                                                  {'quantity': itsQuan.value});
                                         }
                                       },
                                       child: Icon(
@@ -258,8 +261,11 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                                     GestureDetector(
                                       onTap: () {
                                         itsQuan.value++;
-                                        db.doc(widget.id).update(
-                                            {'quantity': itsQuan.value});
+                                        db
+                                            .collection('fruits')
+                                            .doc(widget.id)
+                                            .update(
+                                                {'quantity': itsQuan.value});
                                       },
                                       child: Icon(
                                         Icons.add,
@@ -271,10 +277,21 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                               ],
                             ).animate().slideY(begin: 2, end: 0),
                           ),
-                          20.verticalSpace,
+                          // 20.verticalSpace,
                           MyButton(
                             name: "Add to cart",
-                            onTap: () {},
+                            onTap: () async {
+                              print('added');
+                              await db
+                                  .collection('fruits')
+                                  .doc(widget.id)
+                                  .update({'cart': true});
+                              await db.collection('cart').add({
+                                'id': widget.id,
+                                'quantity': itsQuan.value,
+                                'price': snapshot.requireData.data()!['price'],
+                              });
+                            },
                           ).animate().scale(),
                         ]),
                   )

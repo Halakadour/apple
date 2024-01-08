@@ -1,7 +1,8 @@
-import 'package:apple/auth/screens/signup_screen.dart';
-import 'package:apple/home/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../../home/screens/home_screen.dart';
+import 'signup_screen.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});

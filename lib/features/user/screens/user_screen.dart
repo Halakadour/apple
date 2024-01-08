@@ -1,10 +1,10 @@
 import 'package:apple/core/widgets/float_button.dart';
-import 'package:apple/user/widgets/my_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../core/widgets/bottom_app_bar.dart';
+import '../../../core/widgets/bottom_app_bar.dart';
+import '../widgets/my_list_tile.dart';
 
 class UserScreen extends StatelessWidget {
   const UserScreen({super.key});

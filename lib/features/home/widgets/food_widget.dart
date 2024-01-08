@@ -58,12 +58,13 @@ class _FoodWidgetState extends State<FoodWidget> {
   Future addCartList(String id) async {
     await FirebaseFirestore.instance.collection('cart').add({
       'id': widget.id,
-      'quantity' : widget.quantity,
-      'price' : widget.price,
+      'quantity': widget.quantity,
+      'price': widget.price,
     });
   }
 
   Future removeCartiteItem(String id) async {
+    isClicked.value = false;
     await FirebaseFirestore.instance
         .collection('cart')
         .where('id', isEqualTo: id)
@@ -73,8 +74,7 @@ class _FoodWidgetState extends State<FoodWidget> {
         doc.reference.delete();
       });
     });
-    db.doc(widget.id).update({'quantity': 0});
-    db.doc(widget.id).update({'cart': false});
+    await db.doc(widget.id).update({'quantity': 0, 'cart': false});
   }
 
   Future addFavoriteItem(String id) async {
@@ -94,7 +94,7 @@ class _FoodWidgetState extends State<FoodWidget> {
       });
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -205,13 +205,16 @@ class _FoodWidgetState extends State<FoodWidget> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           GestureDetector(
-                            onTap: () {
-                              if (widget.quantity > 0) {
+                            onTap: () async {
+                              print('minus');
+                              if (itsQuan.value > 1) {
                                 itsQuan.value--;
 
-                                db
+                                await db
                                     .doc(widget.id)
                                     .update({'quantity': itsQuan.value});
+                              } else {
+                                removeCartiteItem(widget.id);
                               }
                             },
                             child: Icon(
@@ -239,7 +242,7 @@ class _FoodWidgetState extends State<FoodWidget> {
                                   .doc(widget.id)
                                   .update({'quantity': itsQuan.value});
                             },
-                            child:  Icon(
+                            child: Icon(
                               Icons.add,
                               color: greenColor,
                             ),
