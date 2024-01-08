@@ -112,7 +112,10 @@ class _MyFoodTileState extends State<MyFoodTile> {
                 GestureDetector(
                   onTap: () {
                     itsQuan.value++;
-                    db.doc(widget.id).update({'quantity': itsQuan.value});
+                    db
+                        .collection('fruits')
+                        .doc(widget.id)
+                        .update({'quantity': itsQuan.value});
                   },
                   child: const Icon(
                     Icons.add,
@@ -131,10 +134,15 @@ class _MyFoodTileState extends State<MyFoodTile> {
                       ))),
                 ),
                 GestureDetector(
-                  onTap: () {
-                    if (itsQuan.value > 0) {
+                  onTap: () async {
+                    if (itsQuan.value > 1) {
                       itsQuan.value--;
-                      db.doc(widget.id).update({'quantity': itsQuan.value});
+                      await db
+                          .collection('fruits')
+                          .doc(widget.id)
+                          .update({'quantity': itsQuan.value});
+                    } else {
+                      widget.onPressed?.call(context);
                     }
                   },
                   child: const Icon(

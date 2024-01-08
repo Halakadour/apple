@@ -1,13 +1,11 @@
 // ignore_for_file: unused_import
 
-import 'package:apple/home/screens/home_screen.dart';
+import 'package:apple/features/splash/screens/splash_screen.dart';
 import 'package:apple/notification_service.dart';
-import 'package:apple/onboard/screens/details_screen.dart';
-import 'package:apple/splash/screens/splash_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'auth/screens/signup_screen.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
@@ -29,8 +27,8 @@ class MainApp extends StatelessWidget {
       designSize: const Size(414, 896),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (_, child) =>
-          const MaterialApp(debugShowCheckedModeBanner: false, home: SplashScreen()),
+      builder: (_, child) => const MaterialApp(
+          debugShowCheckedModeBanner: false, home: SplashScreen()),
     );
   }
 }

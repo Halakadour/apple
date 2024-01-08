@@ -1,20 +1,28 @@
 import 'package:apple/core/widgets/custom_button.dart';
 import 'package:apple/core/widgets/food_tile.dart';
-import 'package:apple/home/screens/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../core/constants/colors.dart';
+import '../../../core/constants/colors.dart';
+import '../../home/screens/home_screen.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   CartScreen({
     super.key,
   });
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
   final db = FirebaseFirestore.instance;
-  double total = 0;
+
+  ValueNotifier<num> total = ValueNotifier(0);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,48 +114,117 @@ class CartScreen extends StatelessWidget {
                                 child: ListView.builder(
                                     itemCount: snapshot.data?.size,
                                     itemBuilder: (context, index) {
-                                      total = total +
-                                          snapshot.requireData.docs[index]
-                                                  ['price'] *
-                                              snapshot.requireData.docs[index]
-                                                  ['quantity'];
+                                      total.value = 0;
+
                                       return FutureBuilder(
                                           future: db
                                               .collection('fruits')
                                               .doc(snapshot.requireData
                                                   .docs[index]['id'])
                                               .get(),
-                                          builder: (context, snapshot) {
-                                            if (snapshot.connectionState ==
+                                          builder: (context, innerSnapshot) {
+                                            if (innerSnapshot.connectionState ==
                                                 ConnectionState.waiting) {
-                                              return const Center(
-                                                child:
-                                                    CircularProgressIndicator(),
-                                              );
-                                            } else {
                                               return MyFoodTile(
-                                                id: snapshot.requireData.id,
-                                                foodColor: snapshot.requireData
+                                                id: '',
+                                                foodColor: 'ffffff',
+                                                imageUrl: 'image',
+                                                foodName: 'loading',
+                                                price: 200,
+                                                weight: 'loading',
+                                                quantity: 2,
+                                                cart: false,
+                                                onPressed: (context) async {},
+                                              ).animate(effects: [
+                                                ShimmerEffect(
+                                                    duration:
+                                                        Durations.extralong4,
+                                                    color: Colors.grey.shade200,
+                                                    angle: .7),
+                                                ShimmerEffect(
+                                                    duration:
+                                                        Durations.extralong4,
+                                                    delay: Durations.extralong4,
+                                                    color: Colors.grey.shade200,
+                                                    angle: .7),
+                                                ShimmerEffect(
+                                                    duration:
+                                                        Durations.extralong4,
+                                                    delay:
+                                                        Durations.extralong4 *
+                                                            2,
+                                                    color: Colors.grey.shade200,
+                                                    angle: .7),
+                                                ShimmerEffect(
+                                                    duration:
+                                                        Durations.extralong4,
+                                                    delay:
+                                                        Durations.extralong4 *
+                                                            3,
+                                                    color: Colors.grey.shade200,
+                                                    angle: .7),
+                                                ShimmerEffect(
+                                                    duration:
+                                                        Durations.extralong4,
+                                                    delay:
+                                                        Durations.extralong4 *
+                                                            4,
+                                                    color: Colors.grey.shade200,
+                                                    angle: .7),
+                                                ShimmerEffect(
+                                                    duration:
+                                                        Durations.extralong4,
+                                                    delay:
+                                                        Durations.extralong4 *
+                                                            5,
+                                                    color: Colors.grey.shade200,
+                                                    angle: .7),
+                                                ShimmerEffect(
+                                                    duration:
+                                                        Durations.extralong4,
+                                                    delay:
+                                                        Durations.extralong4 *
+                                                            6,
+                                                    color: Colors.grey.shade200,
+                                                    angle: .7),
+                                              ]);
+                                            } else {
+                                              total.value += (innerSnapshot
+                                                      .requireData
+                                                      .data()!['price'] *
+                                                  innerSnapshot.requireData
+                                                      .data()!['quantity']);
+
+                                              return MyFoodTile(
+                                                id: innerSnapshot
+                                                    .requireData.id,
+                                                foodColor: innerSnapshot
+                                                    .requireData
                                                     .data()!['color'],
-                                                imageUrl: snapshot.requireData
+                                                imageUrl: innerSnapshot
+                                                    .requireData
                                                     .data()!['image'],
-                                                foodName: snapshot.requireData
+                                                foodName: innerSnapshot
+                                                    .requireData
                                                     .data()!['name'],
-                                                price: snapshot.requireData
+                                                price: innerSnapshot.requireData
                                                     .data()!['price'],
-                                                weight: snapshot.requireData
+                                                weight: innerSnapshot
+                                                    .requireData
                                                     .data()!['weight'],
-                                                quantity: snapshot.requireData
+                                                quantity: innerSnapshot
+                                                    .requireData
                                                     .data()!['quantity'],
-                                                cart: snapshot.requireData
+                                                cart: innerSnapshot.requireData
                                                     .data()!['cart'],
                                                 onPressed: (context) async {
-                                                  await FirebaseFirestore
-                                                      .instance
+                                                  await db
                                                       .collection('cart')
                                                       .where('id',
-                                                          isEqualTo: snapshot
-                                                              .requireData.id)
+                                                          isEqualTo:
+                                                              innerSnapshot
+                                                                  .requireData
+                                                                  .id)
                                                       .get()
                                                       .then((QuerySnapshot
                                                           querySnapshot) {
@@ -156,14 +233,14 @@ class CartScreen extends StatelessWidget {
                                                       doc.reference.delete();
                                                     }
                                                   });
-                                                  db
-                                                      .doc(snapshot
-                                                          .requireData.id)
-                                                      .update({'quantity': 0});
-                                                  db
-                                                      .doc(snapshot
-                                                          .requireData.id)
-                                                      .update({'cart': false});
+                                                  await db
+                                                      .collection('fruits')
+                                                      .doc(snapshot.requireData
+                                                          .docs[index]['id'])
+                                                      .update({
+                                                    'quantity': 0,
+                                                    'cart': false,
+                                                  });
                                                 },
                                               ).animate().flip();
                                             }
@@ -202,16 +279,18 @@ class CartScreen extends StatelessWidget {
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
-                                      Builder(builder: (context) {
-                                        return Text(
-                                          "\$$total",
-                                          style: TextStyle(
-                                            fontFamily: "Poppins",
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        );
-                                      })
+                                      ValueListenableBuilder(
+                                          valueListenable: total,
+                                          builder: (context, value, _) {
+                                            return Text(
+                                              "\$${value}",
+                                              style: TextStyle(
+                                                fontFamily: "Poppins",
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            );
+                                          })
                                     ],
                                   ).animate().fade(),
                                   20.verticalSpace,

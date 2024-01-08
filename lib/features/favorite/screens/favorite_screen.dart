@@ -1,13 +1,13 @@
 import 'package:apple/core/constants/colors.dart';
 import 'package:apple/core/widgets/custom_button.dart';
-import 'package:apple/home/screens/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../core/widgets/food_tile.dart';
+import '../../../core/widgets/food_tile.dart';
+import '../../home/screens/home_screen.dart';
 
 class FavoriteScreen extends StatelessWidget {
   FavoriteScreen({
@@ -24,14 +24,6 @@ class FavoriteScreen extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            )),
         title: Text(
           "Favorites",
           style: TextStyle(
