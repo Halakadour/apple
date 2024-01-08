@@ -32,9 +32,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      bottomNavigationBar: CustomBottomAppBar(pageIndex: 0),
-      floatingActionButton: const MyFloatButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       body: Padding(
         padding: const EdgeInsets.only(top: 40),
         child: Stack(

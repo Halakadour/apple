@@ -1,6 +1,10 @@
 import 'package:apple/core/widgets/bottom_app_bar.dart';
+import 'package:apple/features/favorite/screens/favorite_screen.dart';
 import 'package:apple/features/home/screens/home_screen.dart';
+import 'package:apple/features/user/screens/user_screen.dart';
 import 'package:flutter/material.dart';
+
+import '../../../core/widgets/float_button.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -18,10 +22,16 @@ class _MainScreenState extends State<MainScreen> {
         valueListenable: pageIndex,
         builder: (context, value, _) {
           return Scaffold(
-            body: IndexedStack(children: [
+            floatingActionButton: const MyFloatButton(),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.endDocked,
+            body: IndexedStack(index: value, children: [
               HomeScreen(),
+              UserScreen(),
+              FavoriteScreen(),
+              SizedBox(),
             ]),
-            bottomNavigationBar: CustomBottomAppBar(pageIndex: value),
+            bottomNavigationBar: CustomBottomAppBar(pageIndex: pageIndex),
           );
         });
   }

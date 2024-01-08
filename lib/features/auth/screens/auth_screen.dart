@@ -1,7 +1,7 @@
+import 'package:apple/features/main_screen/screens/main_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../home/screens/home_screen.dart';
 import 'signup_screen.dart';
 
 class AuthScreen extends StatelessWidget {
@@ -14,7 +14,7 @@ class AuthScreen extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return HomeScreen();
+            return MainScreen();
           } else {
             return const SignUpScreen();
           }
