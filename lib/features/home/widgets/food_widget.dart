@@ -53,7 +53,7 @@ class _FoodWidgetState extends State<FoodWidget> {
     super.initState();
   }
 
-  final db = FirebaseFirestore.instance.collection("fruits");
+  final fruitColl = FirebaseFirestore.instance.collection("fruits");
 
   Future addCartList(String id) async {
     await FirebaseFirestore.instance.collection('cart').add({
@@ -74,7 +74,7 @@ class _FoodWidgetState extends State<FoodWidget> {
         doc.reference.delete();
       });
     });
-    await db.doc(widget.id).update({'quantity': 0, 'cart': false});
+    await fruitColl.doc(widget.id).update({'quantity': 0, 'cart': false});
   }
 
   Future addFavoriteItem(String id) async {
@@ -119,7 +119,7 @@ class _FoodWidgetState extends State<FoodWidget> {
                           } else {
                             removeFavoriteItem(widget.id);
                           }
-                          db.doc(widget.id).update({'favorite': isFav.value});
+                          fruitColl.doc(widget.id).update({'favorite': isFav.value});
                         },
                         child: ValueListenableBuilder(
                           valueListenable: isFav,
@@ -191,7 +191,7 @@ class _FoodWidgetState extends State<FoodWidget> {
             GestureDetector(
               onTap: () {
                 isClicked.value = !isClicked.value;
-                db.doc(widget.id).update({'cart': isClicked.value});
+                fruitColl.doc(widget.id).update({'cart': isClicked.value});
                 if (isClicked.value) {
                   addCartList(widget.id);
                 } else {
@@ -210,7 +210,7 @@ class _FoodWidgetState extends State<FoodWidget> {
                               if (itsQuan.value > 1) {
                                 itsQuan.value--;
 
-                                await db
+                                await fruitColl
                                     .doc(widget.id)
                                     .update({'quantity': itsQuan.value});
                               } else {
@@ -238,7 +238,7 @@ class _FoodWidgetState extends State<FoodWidget> {
                             onTap: () {
                               itsQuan.value++;
 
-                              db
+                              fruitColl
                                   .doc(widget.id)
                                   .update({'quantity': itsQuan.value});
                             },

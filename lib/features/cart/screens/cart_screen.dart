@@ -10,7 +10,7 @@ import '../../../core/constants/colors.dart';
 import '../../home/screens/home_screen.dart';
 
 class CartScreen extends StatefulWidget {
-  CartScreen({
+  const CartScreen({
     super.key,
   });
 
@@ -283,7 +283,7 @@ class _CartScreenState extends State<CartScreen> {
                                           valueListenable: total,
                                           builder: (context, value, _) {
                                             return Text(
-                                              "\$${value}",
+                                              "\$$value",
                                               style: TextStyle(
                                                 fontFamily: "Poppins",
                                                 fontSize: 14.sp,

@@ -27,9 +27,9 @@ class _MainScreenState extends State<MainScreen> {
                 FloatingActionButtonLocation.endDocked,
             body: IndexedStack(index: value, children: [
               HomeScreen(),
-              UserScreen(),
+              const UserScreen(),
               FavoriteScreen(),
-              SizedBox(),
+              const SizedBox(),
             ]),
             bottomNavigationBar: CustomBottomAppBar(pageIndex: pageIndex),
           );
